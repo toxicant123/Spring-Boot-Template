@@ -1,5 +1,6 @@
 package com.toxicant123.controller;
 
+import com.toxicant123.util.ResponseData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,5 +53,10 @@ public class AnimalController {
     @PostMapping
     public String translateAnimalName(@RequestBody String animalName) {
         return null;
+    }
+
+    @GetMapping("/rabbit")
+    public ResponseData<String> rabbit() {
+        return ResponseData.success("兔子");
     }
 }

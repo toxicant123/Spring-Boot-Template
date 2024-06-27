@@ -1,5 +1,7 @@
 package com.toxicant123.dto;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -11,7 +13,9 @@ import lombok.Data;
 @Data
 public class LoginDTO {
 
+    @NotNull(message = "username can not be null")
     private String username;
 
+    @NotEmpty(message = "password can not be empty")
     private String password;
 }

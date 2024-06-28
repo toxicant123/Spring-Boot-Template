@@ -11,7 +11,7 @@ import java.util.Map;
  * @create 2024-06-27 下午11:33
  */
 @Data
-public abstract class AbstractBusinessException extends RuntimeException {
+public class BusinessException extends RuntimeException {
 
     Integer code;
 
@@ -19,7 +19,12 @@ public abstract class AbstractBusinessException extends RuntimeException {
 
     Map<String, Object> details;
 
-    public AbstractBusinessException(Integer code, String message, Map<String, Object> details) {
+    public BusinessException(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public BusinessException(Integer code, String message, Map<String, Object> details) {
         this.code = code;
         this.message = message;
         this.details = details;

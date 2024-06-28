@@ -8,7 +8,5 @@ package com.toxicant123.constant;
  */
 public class BusinessExceptionConstant {
 
-    public static final Integer server = 501;
-
-    public static final Integer FIELD_NOT_VALID = 501;
+    public static final Integer FIELD_NOT_VALID = 599;
 }

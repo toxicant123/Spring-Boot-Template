@@ -2,9 +2,10 @@ package com.toxicant123.controller;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import com.toxicant123.dto.AnimalDTO;
+import com.toxicant123.exception.BusinessException;
 import com.toxicant123.util.ResponseData;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -23,7 +24,7 @@ import java.util.Set;
 @RequestMapping("/animal")
 public class AnimalController {
 
-    private Map<String, String> animalNameMap = new HashMap<>();
+    private final Map<String, String> animalNameMap = new HashMap<>();
 
     {
         animalNameMap.put("Elephant", "大象");
@@ -54,8 +55,8 @@ public class AnimalController {
     }
 
     @PostMapping
-    public String translateAnimalName(@RequestBody String animalName) {
-        return null;
+    public String translateAnimalName(@RequestBody AnimalDTO animal) {
+        return animalNameMap.get(animal.getName());
     }
 
     @GetMapping("/rabbit")
@@ -71,5 +72,26 @@ public class AnimalController {
     @GetMapping("/jsonObject")
     public JSONObject getJsonObject() {
         return JSON.parseObject("{\"a\": 1, \"b\": \"2\", \"c\": true}");
+    }
+
+    @GetMapping("/error1")
+    public String error1() {
+        int i = 1 / 0;
+        return "error1";
+    }
+
+    @GetMapping("/error2")
+    public String error2() {
+        String a = null;
+        a.substring(1);
+        return "error2";
+    }
+
+    @GetMapping("/error3")
+    public String error3() {
+        if (1 > Math.random()) {
+            throw new BusinessException(500, "error3");
+        }
+        return "error3";
     }
 }

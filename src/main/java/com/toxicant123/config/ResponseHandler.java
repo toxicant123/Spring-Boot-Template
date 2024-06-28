@@ -1,11 +1,16 @@
 package com.toxicant123.config;
 
+import com.toxicant123.util.ResponseData;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -23,6 +28,14 @@ public class ResponseHandler extends ResponseEntityExceptionHandler implements R
     public boolean supports(MethodParameter returnType,
                             Class<? extends HttpMessageConverter<?>> converterType) {
 
+        if (String.class.equals(returnType.getParameterType())) {
+            return false;
+        }
+
+        if (ResponseData.class.isAssignableFrom(returnType.getParameterType())) {
+            return false;
+        }
+
         return true;
     }
 
@@ -31,9 +44,18 @@ public class ResponseHandler extends ResponseEntityExceptionHandler implements R
                                   MethodParameter returnType,
                                   MediaType selectedContentType,
                                   Class<? extends HttpMessageConverter<?>> selectedConverterType,
-                                  ServerHttpRequest request, ServerHttpResponse response) {
-        return null;
+                                  ServerHttpRequest request,
+                                  ServerHttpResponse response) {
+        return ResponseData.success(body);
     }
 
 
+    @Override
+    protected ResponseEntity<Object> handleExceptionInternal(Exception ex,
+                                                             Object body,
+                                                             HttpHeaders headers,
+                                                             HttpStatusCode statusCode,
+                                                             WebRequest request) {
+        return ResponseEntity.ok(ResponseData.fail(ex.getMessage()));
+    }
 }

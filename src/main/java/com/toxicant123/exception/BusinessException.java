@@ -15,4 +15,19 @@ public class BusinessException extends RuntimeException {
 
     private String message;
 
+    public BusinessException() {
+    }
+
+    public BusinessException(Integer code) {
+        this.code = code;
+    }
+
+    public BusinessException(String message) {
+        this.message = message;
+    }
+
+    public BusinessException(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 }

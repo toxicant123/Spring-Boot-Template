@@ -21,7 +21,7 @@ public class ResponseData<T> {
     private String message;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date time = new Date();
+    private Date date = new Date();
 
     private T data;
 

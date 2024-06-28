@@ -90,7 +90,7 @@ public class AnimalController {
     @GetMapping("/error3")
     public String error3() {
         if (1 > Math.random()) {
-            throw new BusinessException(500, "error3");
+            throw new BusinessException(502, "error3");
         }
         return "error3";
     }

@@ -1,18 +1,16 @@
 package com.toxicant123.config;
 
+import com.toxicant123.exception.BusinessException;
 import com.toxicant123.util.ResponseData;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
  * @author toxicant123
@@ -20,8 +18,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * @Description
  * @create 2024-06-27 下午11:30
  */
+@Slf4j
 @RestControllerAdvice
-public class ResponseHandler extends ResponseEntityExceptionHandler implements ResponseBodyAdvice<Object> {
+public class ResponseHandler implements ResponseBodyAdvice<Object> {
 
 
     @Override
@@ -29,10 +28,6 @@ public class ResponseHandler extends ResponseEntityExceptionHandler implements R
                             Class<? extends HttpMessageConverter<?>> converterType) {
 
         if (String.class.equals(returnType.getParameterType())) {
-            return false;
-        }
-
-        if (Throwable.class.isAssignableFrom(returnType.getParameterType())) {
             return false;
         }
 
@@ -53,13 +48,14 @@ public class ResponseHandler extends ResponseEntityExceptionHandler implements R
         return ResponseData.success(body);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseData<?> handleAllExceptions(Exception ex) {
+        log.error("error happened", ex);
 
-    @Override
-    protected ResponseEntity<Object> handleExceptionInternal(Exception ex,
-                                                             Object body,
-                                                             HttpHeaders headers,
-                                                             HttpStatusCode statusCode,
-                                                             WebRequest request) {
-        return ResponseEntity.ok(ResponseData.fail(ex.getMessage()));
+        if (ex instanceof BusinessException be) {
+            return ResponseData.fail(null, be.getMessage(), be.getCode());
+        }
+
+        return ResponseData.fail(null, ex.getMessage());
     }
 }

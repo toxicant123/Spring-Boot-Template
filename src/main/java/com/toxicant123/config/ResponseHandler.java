@@ -7,6 +7,7 @@ import com.toxicant123.util.ResponseData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -31,9 +32,9 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
     public boolean supports(MethodParameter returnType,
                             Class<? extends HttpMessageConverter<?>> converterType) {
 
-        if (String.class.equals(returnType.getParameterType())) {
-            return false;
-        }
+        // if (String.class.equals(returnType.getParameterType())) {
+        //     return false;
+        // }
 
         if (ResponseData.class.isAssignableFrom(returnType.getParameterType())) {
             return false;
@@ -69,7 +70,7 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
         } else {
             log.error("error happened", ex);
 
-            return ResponseData.fail(null, ex.getMessage());
+            return ResponseData.fail(null, HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         }
     }
 }

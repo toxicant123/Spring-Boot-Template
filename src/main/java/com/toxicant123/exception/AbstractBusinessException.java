@@ -17,5 +17,11 @@ public abstract class AbstractBusinessException extends RuntimeException {
 
     String message;
 
-    Map<String, Object> detail;
+    Map<String, Object> details;
+
+    public AbstractBusinessException(Integer code, String message, Map<String, Object> details) {
+        this.code = code;
+        this.message = message;
+        this.details = details;
+    }
 }

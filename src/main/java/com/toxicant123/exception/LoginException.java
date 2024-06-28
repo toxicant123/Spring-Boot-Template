@@ -1,5 +1,7 @@
 package com.toxicant123.exception;
 
+import java.util.Map;
+
 /**
  * @author toxicant123
  * @version 1.0
@@ -8,12 +10,7 @@ package com.toxicant123.exception;
  */
 public class LoginException extends AbstractBusinessException {
 
-    public LoginException(Integer code) {
-        this.code = code;
+    public LoginException(Integer code, String message, Map<String, Object> details) {
+        super(code, message, details);
     }
-
-    public LoginException() {
-    }
-
-
 }

@@ -11,7 +11,6 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
@@ -21,7 +20,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @create 2024-06-27 下午11:30
  */
 @Slf4j
-@RestControllerAdvice
+// @RestControllerAdvice
 public class ResponseHandler implements ResponseBodyAdvice<Object> {
 
 
@@ -62,7 +61,7 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
             if (ObjectUtils.isNotEmpty(fieldError)) {
                 message = fieldError.getDefaultMessage();
             }
-            return ResponseData.fail(null, message, 500);
+            return ResponseData.fail(null, message);
         }
 
         return ResponseData.fail(null, ex.getMessage());

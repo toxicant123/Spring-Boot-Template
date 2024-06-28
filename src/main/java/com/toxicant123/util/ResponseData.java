@@ -3,6 +3,7 @@ package com.toxicant123.util;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.http.HttpStatus;
 
 import java.util.Date;
 
@@ -45,7 +46,7 @@ public class ResponseData<T> {
     }
 
     public static <T> ResponseData<T> fail(T data, String message) {
-        return fail(data, message, 500);
+        return fail(data, message, HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
     public static <T> ResponseData<T> fail(T data, String message, Integer code) {

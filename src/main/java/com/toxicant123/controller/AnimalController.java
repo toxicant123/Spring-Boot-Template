@@ -1,7 +1,10 @@
 package com.toxicant123.controller;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.toxicant123.util.ResponseData;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -58,5 +61,15 @@ public class AnimalController {
     @GetMapping("/rabbit")
     public ResponseData<String> rabbit() {
         return ResponseData.success("兔子");
+    }
+
+    @GetMapping("/object")
+    public Object getObject() {
+        return new Object();
+    }
+
+    @GetMapping("/jsonObject")
+    public JSONObject getJsonObject() {
+        return JSON.parseObject("{\"a\": 1, \"b\": \"2\", \"c\": true}");
     }
 }

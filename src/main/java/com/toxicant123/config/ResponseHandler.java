@@ -32,6 +32,10 @@ public class ResponseHandler extends ResponseEntityExceptionHandler implements R
             return false;
         }
 
+        if (Throwable.class.isAssignableFrom(returnType.getParameterType())) {
+            return false;
+        }
+
         if (ResponseData.class.isAssignableFrom(returnType.getParameterType())) {
             return false;
         }

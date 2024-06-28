@@ -32,10 +32,6 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
     public boolean supports(MethodParameter returnType,
                             Class<? extends HttpMessageConverter<?>> converterType) {
 
-        // if (String.class.equals(returnType.getParameterType())) {
-        //     return false;
-        // }
-
         if (ResponseData.class.isAssignableFrom(returnType.getParameterType())) {
             return false;
         }
@@ -57,6 +53,7 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
     public ResponseData<?> handleAllExceptions(Exception ex) {
         if (ex instanceof BusinessException be) {
             log.error("error detail: {}", JSON.toJSONString(be.getDetails()), ex);
+
             return ResponseData.fail(null, be.getMessage(), be.getCode());
         } else if (ex instanceof MethodArgumentNotValidException mae) {
             log.error("method argument not valid", ex);

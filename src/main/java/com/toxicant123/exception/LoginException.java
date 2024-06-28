@@ -6,6 +6,14 @@ package com.toxicant123.exception;
  * @Description
  * @create 2024-06-28 下午7:51
  */
-public class LoginException extends BusinessException {
+public class LoginException extends AbstractBusinessException {
+
+    public LoginException(Integer code) {
+        this.code = code;
+    }
+
+    public LoginException() {
+    }
+
 
 }

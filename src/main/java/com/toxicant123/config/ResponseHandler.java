@@ -1,6 +1,6 @@
 package com.toxicant123.config;
 
-import com.toxicant123.exception.BusinessException;
+import com.toxicant123.exception.AbstractBusinessException;
 import com.toxicant123.util.ResponseData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -54,7 +54,7 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
     public ResponseData<?> handleAllExceptions(Exception ex) {
         log.error("error happened", ex);
 
-        if (ex instanceof BusinessException be) {
+        if (ex instanceof AbstractBusinessException be) {
             return ResponseData.fail(null, be.getMessage(), be.getCode());
         } else if (ex instanceof MethodArgumentNotValidException mae) {
             var message = "method argument not valid";

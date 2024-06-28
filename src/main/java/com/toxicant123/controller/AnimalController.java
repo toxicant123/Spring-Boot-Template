@@ -3,7 +3,6 @@ package com.toxicant123.controller;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.toxicant123.dto.AnimalDTO;
-import com.toxicant123.exception.BusinessException;
 import com.toxicant123.util.ResponseData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -90,7 +89,7 @@ public class AnimalController {
     @GetMapping("/error3")
     public String error3() {
         if (1 > Math.random()) {
-            throw new BusinessException(502, "error3");
+            // throw new BusinessException(502, "error3");
         }
         return "error3";
     }

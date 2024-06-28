@@ -1,7 +1,6 @@
 package com.toxicant123.controller;
 
 import com.toxicant123.dto.LoginDTO;
-import com.toxicant123.exception.LoginException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +24,7 @@ public class LoginController {
     public String login(@RequestBody @Validated LoginDTO dto) {
 
         if (!StringUtils.equals(dto.getUsername(), dto.getPassword())) {
-            throw new LoginException();
+            // throw new LoginException();
         }
 
         return "success";

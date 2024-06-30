@@ -31,7 +31,7 @@ public class ResponseData<T> {
     }
 
     public static <T> ResponseData<T> success(T data, String message) {
-        return success(data, message, 200);
+        return success(data, message, HttpStatus.OK.value());
     }
 
     public static <T> ResponseData<T> success(T data, String message, Integer code) {

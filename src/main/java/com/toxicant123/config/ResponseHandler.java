@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import java.util.UUID;
+
 /**
  * @author toxicant123
  * @version 1.0
@@ -51,23 +53,25 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
 
     @ExceptionHandler(Exception.class)
     public ResponseData<?> handleAllExceptions(Exception ex) {
-        if (ex instanceof BusinessException be) {
-            log.error("error detail: {}", JSON.toJSONString(be.getDetails()), ex);
+        var uuid = UUID.randomUUID().toString();
 
-            return ResponseData.fail(null, be.getMessage(), be.getCode());
+        if (ex instanceof BusinessException be) {
+            log.error("uuid: {}, error detail: {}", uuid, JSON.toJSONString(be.getDetails()), ex);
+
+            return ResponseData.fail(null, be.getMessage(), be.getCode(), uuid);
         } else if (ex instanceof MethodArgumentNotValidException mae) {
-            log.error("method argument not valid", ex);
+            log.error("uuid: {}, method argument not valid", uuid, ex);
 
             var message = "method argument not valid";
             var fieldError = mae.getFieldError();
             if (ObjectUtils.isNotEmpty(fieldError)) {
                 message = fieldError.getDefaultMessage();
             }
-            return ResponseData.fail(null, message, BusinessExceptionConstant.FIELD_NOT_VALID);
+            return ResponseData.fail(null, message, BusinessExceptionConstant.FIELD_NOT_VALID, uuid);
         } else {
-            log.error("error happened", ex);
+            log.error("uuid: {}, error happened", uuid, ex);
 
-            return ResponseData.fail(null, HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+            return ResponseData.fail(null, HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), HttpStatus.INTERNAL_SERVER_ERROR.value(), uuid);
         }
     }
 }

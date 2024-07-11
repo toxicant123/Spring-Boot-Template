@@ -26,6 +26,8 @@ public class ResponseData<T> {
 
     private T data;
 
+    private String uuid;
+
     public static <T> ResponseData<T> success(T data) {
         return success(data, "success");
     }
@@ -35,10 +37,15 @@ public class ResponseData<T> {
     }
 
     public static <T> ResponseData<T> success(T data, String message, Integer code) {
+        return success(data, message, code, null);
+    }
+
+    public static <T> ResponseData<T> success(T data, String message, Integer code, String uuid) {
         return new ResponseData<T>()
                 .setData(data)
                 .setMessage(message)
-                .setCode(code);
+                .setCode(code)
+                .setUuid(uuid);
     }
 
     public static <T> ResponseData<T> fail(T data) {
@@ -50,10 +57,14 @@ public class ResponseData<T> {
     }
 
     public static <T> ResponseData<T> fail(T data, String message, Integer code) {
+        return fail(data, message, code, null);
+    }
+
+    public static <T> ResponseData<T> fail(T data, String message, Integer code, String uuid) {
         return new ResponseData<T>()
                 .setData(data)
                 .setMessage(message)
-                .setCode(code);
+                .setCode(code)
+                .setUuid(uuid);
     }
-
 }

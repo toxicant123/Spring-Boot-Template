@@ -4,7 +4,6 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.sound.sampled.BooleanControl;
 import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -48,11 +47,11 @@ public class HTTP {
     }
 
     public static <T> T get(String url, Map<String, String> params, Map<String, String> headers, Class<T> clazz) {
-        return request(HttpRequest.newBuilder().GET(), url, params, headers, str -> JSON.parseObject(str, clazz));
+        return request(HttpRequest.newBuilder().GET(), url, null, params, headers, str -> JSON.parseObject(str, clazz));
     }
 
     public static <T> T get(String url, Map<String, String> params, Map<String, String> headers, TypeReference<T> typeReference) {
-        return request(HttpRequest.newBuilder().GET(), url, params, headers, str -> JSON.parseObject(str, typeReference));
+        return request(HttpRequest.newBuilder().GET(), url, null, params, headers, str -> JSON.parseObject(str, typeReference));
     }
 
     public static <T> T post(String url, Class<T> clazz) {

@@ -1,12 +1,14 @@
 package com.toxicant123.util;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.TypeReference;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * @author toxicant123
@@ -28,35 +30,65 @@ public class HTTP {
         return get(url, null, clazz);
     }
 
+    public static <T> T get(String url, TypeReference<T> typeReference) {
+        return get(url, null, typeReference);
+    }
+
     public static <T> T get(String url, Map<String, String> params, Class<T> clazz) {
         return get(url, params, null, clazz);
     }
 
+    public static <T> T get(String url, Map<String, String> params, TypeReference<T> typeReference) {
+        return get(url, params, null, typeReference);
+    }
+
     public static <T> T get(String url, Map<String, String> params, Map<String, String> headers, Class<T> clazz) {
-        return request(HttpRequest.newBuilder().GET(), url, params, headers, clazz);
+        return request(HttpRequest.newBuilder().GET(), url, params, headers, str -> JSON.parseObject(str, clazz));
+    }
+
+    public static <T> T get(String url, Map<String, String> params, Map<String, String> headers, TypeReference<T> typeReference) {
+        return request(HttpRequest.newBuilder().GET(), url, params, headers, str -> JSON.parseObject(str, typeReference));
     }
 
     public static <T> T post(String url, Class<T> clazz) {
         return post(url, null, clazz);
     }
 
+    public static <T> T post(String url, TypeReference<T> typeReference) {
+        return post(url, null, typeReference);
+    }
+
     public static <T> T post(String url, Object body, Class<T> clazz) {
         return post(url, body, null, clazz);
+    }
+
+    public static <T> T post(String url, Object body, TypeReference<T> typeReference) {
+        return post(url, body, null, typeReference);
     }
 
     public static <T> T post(String url, Object body, Map<String, String> params, Class<T> clazz) {
         return post(url, body, params, null, clazz);
     }
 
-
-    public static <T> T post(String url, Object body, Map<String, String> params, Map<String, String> headers, Class<T> clazz) {
-        var requestBody = body != null ?
-                HttpRequest.BodyPublishers.ofString(JSON.toJSONString(body), StandardCharsets.UTF_8)
-                : HttpRequest.BodyPublishers.noBody();
-        return request(HttpRequest.newBuilder().POST(requestBody), url, params, headers, clazz);
+    public static <T> T post(String url, Object body, Map<String, String> params, TypeReference<T> typeReference) {
+        return post(url, body, params, null, typeReference);
     }
 
-    public static <T> T request(HttpRequest.Builder builder, String url, Map<String, String> params, Map<String, String> headers, Class<T> clazz) {
+    public static <T> T post(String url, Object body, Map<String, String> params, Map<String, String> headers, Class<T> clazz) {
+        return request(HttpRequest.newBuilder().POST(getRequestBody(body)), url, params, headers, str -> JSON.parseObject(str, clazz));
+    }
+
+    public static <T> T post(String url, Object body, Map<String, String> params, Map<String, String> headers, TypeReference<T> typeReference) {
+        return request(HttpRequest.newBuilder().POST(getRequestBody(body)), url, params, headers, str -> JSON.parseObject(str, typeReference));
+    }
+
+    private static HttpRequest.BodyPublisher getRequestBody(Object body) {
+        return body != null ?
+                HttpRequest.BodyPublishers.ofString(JSON.toJSONString(body), StandardCharsets.UTF_8)
+                : HttpRequest.BodyPublishers.noBody();
+    }
+
+    private static <T> T request(HttpRequest.Builder builder, String url, Map<String, String> params, Map<String, String> headers, Function<String, T> function) {
         return null;
     }
 }

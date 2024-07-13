@@ -2,9 +2,13 @@ package com.toxicant123.util;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
+import lombok.extern.slf4j.Slf4j;
 
+import javax.sound.sampled.BooleanControl;
+import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Map;
@@ -16,6 +20,7 @@ import java.util.function.Function;
  * @Description
  * @create 2024-07-13 下午5:04
  */
+@Slf4j
 public class HTTP {
 
     private static final Duration timeout = Duration.ofSeconds(60);
@@ -75,11 +80,11 @@ public class HTTP {
     }
 
     public static <T> T post(String url, Object body, Map<String, String> params, Map<String, String> headers, Class<T> clazz) {
-        return request(HttpRequest.newBuilder().POST(getRequestBody(body)), url, params, headers, str -> JSON.parseObject(str, clazz));
+        return request(HttpRequest.newBuilder().POST(getRequestBody(body)), url, body, params, headers, str -> JSON.parseObject(str, clazz));
     }
 
     public static <T> T post(String url, Object body, Map<String, String> params, Map<String, String> headers, TypeReference<T> typeReference) {
-        return request(HttpRequest.newBuilder().POST(getRequestBody(body)), url, params, headers, str -> JSON.parseObject(str, typeReference));
+        return request(HttpRequest.newBuilder().POST(getRequestBody(body)), url, body, params, headers, str -> JSON.parseObject(str, typeReference));
     }
 
     private static HttpRequest.BodyPublisher getRequestBody(Object body) {
@@ -88,7 +93,28 @@ public class HTTP {
                 : HttpRequest.BodyPublishers.noBody();
     }
 
-    private static <T> T request(HttpRequest.Builder builder, String url, Map<String, String> params, Map<String, String> headers, Function<String, T> function) {
-        return null;
+    private static <T> T request(HttpRequest.Builder builder, String url, Object body, Map<String, String> params, Map<String, String> headers, Function<String, T> function) {
+        builder.timeout(timeout);
+
+        if (headers != null) {
+            params.forEach(builder::header);
+        }
+
+        var request = builder.build();
+
+        var result = (T) null;
+        try {
+            var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            var responseBody = response.body();
+            result = function.apply(responseBody);
+        } catch (IOException | InterruptedException e) {
+            log.error("send http request error, request url is {}, body is {}, params is {}, headers is {}",
+                    url,
+                    JSON.toJSONString(body),
+                    params,
+                    headers);
+
+        }
+        return result;
     }
 }

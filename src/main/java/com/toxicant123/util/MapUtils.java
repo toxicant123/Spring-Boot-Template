@@ -9,7 +9,7 @@ import java.util.Map;
  * @Description
  * @create 2024-06-28 下午8:53
  */
-public class MapUtil {
+public class MapUtils {
 
     public static <K, V> Map<K, V> of(K key, V value) {
         Map<K, V> map = new HashMap<>();

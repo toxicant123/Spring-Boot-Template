@@ -1,6 +1,7 @@
 package com.toxicant123.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import java.util.Map;
  * @create 2024-06-27 下午11:33
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class BusinessException extends RuntimeException {
 
     Integer code;

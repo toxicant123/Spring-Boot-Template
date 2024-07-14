@@ -13,4 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository {
 
     UserVO getUserById(Long id);
+
+    Long getUserNameLength(Long id);
 }

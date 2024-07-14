@@ -28,4 +28,9 @@ public class UserController {
     public UserDTO getUserById(@RequestParam("id") @NotNull(message = "id cannot be null") Long id) {
         return userService.getUserById(id);
     }
+
+    @GetMapping("/userNameLength")
+    public Long getUserNameLength(@RequestParam("id") @NotNull(message = "id cannot be null") Long id) {
+        return userService.getUserNameLength(id);
+    }
 }

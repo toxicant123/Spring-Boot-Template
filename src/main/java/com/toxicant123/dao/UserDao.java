@@ -12,4 +12,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserDao extends BaseMapper<UserVO> {
+
+    Long getUserNameLength(Long id);
 }

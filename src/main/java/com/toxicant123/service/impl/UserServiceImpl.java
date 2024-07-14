@@ -30,4 +30,9 @@ public class UserServiceImpl implements UserService {
 
         return userConvertService.convertUserVOToUserDTO(userVO);
     }
+
+    @Override
+    public Long getUserNameLength(Long id) {
+        return userRepository.getUserNameLength(id);
+    }
 }

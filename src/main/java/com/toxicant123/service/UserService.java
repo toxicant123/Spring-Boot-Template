@@ -11,4 +11,6 @@ import com.toxicant123.dto.UserDTO;
 public interface UserService {
 
     UserDTO getUserById(Long id);
+
+    Long getUserNameLength(Long id);
 }

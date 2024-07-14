@@ -31,4 +31,9 @@ public class UserRepositoryImpl implements UserRepository {
                 .eq(UserVO::getId, id)
                 .eq(UserVO::getExistFlag, ExistFlagConstant.EXIST_FLAG));
     }
+
+    @Override
+    public Long getUserNameLength(Long id) {
+        return userDao.getUserNameLength(id);
+    }
 }

@@ -1,5 +1,6 @@
 package com.toxicant123.vo;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,6 +11,7 @@ import lombok.EqualsAndHashCode;
  * @create 2024-07-14 上午11:32
  */
 @Data
+@TableName("user")
 @EqualsAndHashCode(callSuper = true)
 public class UserVO extends BaseVO{
 

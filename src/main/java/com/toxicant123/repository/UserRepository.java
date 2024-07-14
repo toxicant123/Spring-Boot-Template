@@ -1,5 +1,6 @@
 package com.toxicant123.repository;
 
+import com.toxicant123.vo.UserVO;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,4 +12,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository {
 
+    UserVO getUserById(Long id);
 }

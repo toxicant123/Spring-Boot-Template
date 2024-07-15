@@ -1,8 +1,10 @@
 package com.toxicant123.repository.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.toxicant123.constant.ExistFlagConstant;
 import com.toxicant123.dao.UserDao;
+import com.toxicant123.param.UserParam;
 import com.toxicant123.repository.UserRepository;
 import com.toxicant123.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +37,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Long getUserNameLength(Long id) {
         return userDao.getUserNameLength(id);
+    }
+
+    @Override
+    public Page<UserVO> queryUserList(UserParam param) {
+        return userDao.queryUserList(new Page<>(param.getCurPage(), param.getPageSize()), param);
     }
 }

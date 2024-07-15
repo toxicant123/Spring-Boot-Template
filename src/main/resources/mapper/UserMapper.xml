@@ -8,4 +8,8 @@
         select length(name) from user where id = #{id}
     </select>
 
+    <select id="queryUserList" resultType="com.toxicant123.vo.UserVO">
+        select * from user where gender > #{param.minGender}
+    </select>
+
 </mapper>

@@ -1,14 +1,14 @@
 package com.toxicant123.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.toxicant123.dto.UserDTO;
+import com.toxicant123.param.UserParam;
 import com.toxicant123.service.UserService;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author toxicant123
@@ -32,5 +32,10 @@ public class UserController {
     @GetMapping("/userNameLength")
     public Long getUserNameLength(@RequestParam("id") @NotNull(message = "id cannot be null") Long id) {
         return userService.getUserNameLength(id);
+    }
+
+    @PostMapping("/queryUserList")
+    public IPage<UserDTO> queryUserList(@RequestBody @Validated UserParam param) {
+        return userService.queryUserList(param);
     }
 }

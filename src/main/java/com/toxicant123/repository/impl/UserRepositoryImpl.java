@@ -6,7 +6,7 @@ import com.toxicant123.constant.ExistFlagConstant;
 import com.toxicant123.dao.UserDao;
 import com.toxicant123.param.UserParam;
 import com.toxicant123.repository.UserRepository;
-import com.toxicant123.vo.UserVO;
+import com.toxicant123.entity.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,15 +23,15 @@ public class UserRepositoryImpl implements UserRepository {
     private UserDao userDao;
 
     @Override
-    public UserVO getUserById(Long id) {
+    public UserDO getUserById(Long id) {
         return userDao.selectOne(Wrappers
-                .<UserVO>lambdaQuery()
-                .select(UserVO::getName,
-                        UserVO::getAge,
-                        UserVO::getGender,
-                        UserVO::getEmail)
-                .eq(UserVO::getId, id)
-                .eq(UserVO::getExistFlag, ExistFlagConstant.EXIST_FLAG));
+                .<UserDO>lambdaQuery()
+                .select(UserDO::getName,
+                        UserDO::getAge,
+                        UserDO::getGender,
+                        UserDO::getEmail)
+                .eq(UserDO::getId, id)
+                .eq(UserDO::getExistFlag, ExistFlagConstant.EXIST_FLAG));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Page<UserVO> queryUserList(UserParam param) {
+    public Page<UserDO> queryUserList(UserParam param) {
         return userDao.queryUserList(new Page<>(param.getCurPage(), param.getPageSize()), param);
     }
 }

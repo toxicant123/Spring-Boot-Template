@@ -1,6 +1,6 @@
 package com.toxicant123.controller;
 
-import com.toxicant123.dto.AnimalDTO;
+import com.toxicant123.param.AnimalParam;
 import com.toxicant123.util.ResponseData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -52,7 +52,7 @@ public class AnimalController {
     }
 
     @PostMapping
-    public String translateAnimalName(@RequestBody AnimalDTO animal) {
+    public String translateAnimalName(@RequestBody AnimalParam animal) {
         return animalNameMap.get(animal.getName());
     }
 

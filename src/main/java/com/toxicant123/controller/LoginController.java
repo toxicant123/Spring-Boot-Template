@@ -1,6 +1,6 @@
 package com.toxicant123.controller;
 
-import com.toxicant123.dto.LoginDTO;
+import com.toxicant123.vo.LoginVO;
 import com.toxicant123.param.LoginParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     @PostMapping
-    public LoginDTO login(@RequestBody @Validated LoginParam dto) {
+    public LoginVO login(@RequestBody @Validated LoginParam param) {
 
-        if (!StringUtils.equals(dto.getUsername(), dto.getPassword())) {
+        if (!StringUtils.equals(param.getUsername(), param.getPassword())) {
             // throw new LoginException();
         }
 
-        var loginDTO = new LoginDTO();
-        return loginDTO;
+        var loginVO = new LoginVO();
+        return loginVO;
     }
 }

@@ -1,19 +1,15 @@
 package com.toxicant123.vo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * @author toxicant123
  * @version 1.0
  * @Description
- * @create 2024-07-14 上午11:32
+ * @create 2024-07-22 下午7:42
  */
 @Data
-@TableName("user")
-@EqualsAndHashCode(callSuper = true)
-public class UserVO extends BaseVO{
+public class UserVO {
 
     private String name;
 

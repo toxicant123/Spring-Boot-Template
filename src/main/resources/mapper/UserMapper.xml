@@ -8,7 +8,7 @@
         select length(name) from user where id = #{id}
     </select>
 
-    <select id="queryUserList" resultType="com.toxicant123.vo.UserVO">
+    <select id="queryUserList" resultType="com.toxicant123.entity.UserDO">
         select * from user where gender > #{param.minGender}
     </select>
 

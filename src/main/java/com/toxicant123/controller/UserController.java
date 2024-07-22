@@ -1,9 +1,9 @@
 package com.toxicant123.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.toxicant123.dto.UserDTO;
 import com.toxicant123.param.UserParam;
 import com.toxicant123.service.UserService;
+import com.toxicant123.vo.UserVO;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/get")
-    public UserDTO getUserById(@RequestParam("id") @NotNull(message = "id cannot be null") Long id) {
+    public UserVO getUserById(@RequestParam("id") @NotNull(message = "id cannot be null") Long id) {
         return userService.getUserById(id);
     }
 
@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/queryUserList")
-    public IPage<UserDTO> queryUserList(@RequestBody @Validated UserParam param) {
+    public IPage<UserVO> queryUserList(@RequestBody @Validated UserParam param) {
         return userService.queryUserList(param);
     }
 }

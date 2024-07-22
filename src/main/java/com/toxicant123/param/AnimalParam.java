@@ -1,4 +1,4 @@
-package com.toxicant123.dto;
+package com.toxicant123.param;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import lombok.Data;
  * @create 2024-06-27 下午11:54
  */
 @Data
-public class AnimalDTO {
+public class AnimalParam {
 
     private String name;
 }

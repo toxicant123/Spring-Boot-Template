@@ -31,6 +31,10 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
         boolean hasSpecialChar = false;
 
         for (char c : value.toCharArray()) {
+            if (c > 128) {
+                return false;
+            }
+
             if (c >= 48 && c <= 57) {
                 hasNumber = true;
                 continue;

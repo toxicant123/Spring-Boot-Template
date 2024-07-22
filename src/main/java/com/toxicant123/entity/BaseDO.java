@@ -17,11 +17,11 @@ public class BaseDO {
 
     private Byte existFlag;
 
-    private String createBy;
+    private Long createBy;
 
     private Date createTime;
 
-    private String updateBy;
+    private Long updateBy;
 
     private Date updateTime;
 }

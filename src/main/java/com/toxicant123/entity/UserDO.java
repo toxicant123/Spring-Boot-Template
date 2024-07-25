@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @TableName("user")
 @EqualsAndHashCode(callSuper = true)
-public class UserDO extends BaseDO {
+public class UserDO extends IdDO {
 
     private String name;
 

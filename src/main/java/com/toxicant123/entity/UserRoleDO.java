@@ -13,5 +13,9 @@ import lombok.EqualsAndHashCode;
 @Data
 @TableName("user_role")
 @EqualsAndHashCode(callSuper = true)
-public class UserRoleDO extends BaseDO {
+public class UserRoleDO extends IdDO {
+
+    private Long userId;
+
+    private String role;
 }

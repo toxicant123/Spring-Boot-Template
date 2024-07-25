@@ -1,5 +1,6 @@
 package com.toxicant123.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -7,11 +8,10 @@ import lombok.EqualsAndHashCode;
  * @author toxicant123
  * @version 1.0
  * @Description
- * @create 2024-07-14 下午12:33
+ * @create 2024-07-25 上午1:59
  */
 @Data
+@TableName("user_role")
 @EqualsAndHashCode(callSuper = true)
-public class BaseDO extends AuditDO {
-
-    private Long id;
+public class UserRoleDO extends BaseDO {
 }

@@ -1,5 +1,6 @@
 package com.toxicant123.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,6 +16,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class UserInfoDO extends BaseDO {
 
+    @TableId
     private Long userId;
 
     private String nickname;
@@ -23,7 +25,7 @@ public class UserInfoDO extends BaseDO {
 
     private Short birthYear;
 
-    private Short birthMonth;
+    private Byte birthMonth;
 
-    private Short birthDay;
+    private Byte birthDay;
 }

@@ -11,7 +11,7 @@ import java.util.Date;
  * @create 2024-07-25 上午2:11
  */
 @Data
-public class AuditDO {
+public abstract class BaseAuditDO {
 
     private Byte existFlag;
 

@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UserIdDO extends AuditDO {
+public abstract class BaseUserIdDO extends BaseAuditDO {
 
     @TableId
     private Long userId;

@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @TableName("user_info")
 @EqualsAndHashCode(callSuper = true)
-public class UserInfoDO extends UserIdDO {
+public class UserInfoDO extends BaseUserIdDO {
 
     private String nickname;
 

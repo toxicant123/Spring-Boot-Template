@@ -3,6 +3,7 @@ package com.toxicant123.util;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
 import java.net.http.HttpClient;
@@ -47,11 +48,11 @@ public class HTTP {
     }
 
     public static <T> T get(String url, Map<String, String> params, Map<String, String> headers, Class<T> clazz) {
-        return request(HttpRequest.newBuilder().GET(), url, null, params, headers, str -> JSON.parseObject(str, clazz));
+        return request(HttpRequest.newBuilder().GET(), url, params, headers, str -> JSON.parseObject(str, clazz));
     }
 
     public static <T> T get(String url, Map<String, String> params, Map<String, String> headers, TypeReference<T> typeReference) {
-        return request(HttpRequest.newBuilder().GET(), url, null, params, headers, str -> JSON.parseObject(str, typeReference));
+        return request(HttpRequest.newBuilder().GET(), url, params, headers, str -> JSON.parseObject(str, typeReference));
     }
 
     public static <T> T post(String url, Class<T> clazz) {
@@ -79,11 +80,11 @@ public class HTTP {
     }
 
     public static <T> T post(String url, Object body, Map<String, String> params, Map<String, String> headers, Class<T> clazz) {
-        return request(HttpRequest.newBuilder().POST(getRequestBody(body)), url, body, params, headers, str -> JSON.parseObject(str, clazz));
+        return request(HttpRequest.newBuilder().POST(getRequestBody(body)), url, params, headers, str -> JSON.parseObject(str, clazz));
     }
 
     public static <T> T post(String url, Object body, Map<String, String> params, Map<String, String> headers, TypeReference<T> typeReference) {
-        return request(HttpRequest.newBuilder().POST(getRequestBody(body)), url, body, params, headers, str -> JSON.parseObject(str, typeReference));
+        return request(HttpRequest.newBuilder().POST(getRequestBody(body)), url, params, headers, str -> JSON.parseObject(str, typeReference));
     }
 
     private static HttpRequest.BodyPublisher getRequestBody(Object body) {
@@ -92,7 +93,7 @@ public class HTTP {
                 : HttpRequest.BodyPublishers.noBody();
     }
 
-    private static <T> T request(HttpRequest.Builder builder, String url, Object body, Map<String, String> params, Map<String, String> headers, Function<String, T> function) {
+    private static <T> T request(HttpRequest.Builder builder, String url, Map<String, String> params, Map<String, String> headers, Function<String, T> function) {
         builder.timeout(timeout);
 
         if (headers != null) {
@@ -104,14 +105,15 @@ public class HTTP {
         var result = (T) null;
         try {
             var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            var statusCode = response.statusCode();
+
+            if (statusCode >= HttpStatus.BAD_REQUEST.value()) {
+                throw new RuntimeException();
+            }
+
             var responseBody = response.body();
             result = function.apply(responseBody);
         } catch (IOException | InterruptedException e) {
-            log.error("send http request error, request url is {}, body is {}, params is {}, headers is {}",
-                    url,
-                    JSON.toJSONString(body),
-                    params,
-                    headers);
 
         }
         return result;

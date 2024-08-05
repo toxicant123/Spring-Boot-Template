@@ -3,6 +3,7 @@ package com.toxicant123.util;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
@@ -96,7 +97,7 @@ public class HTTP {
     private static <T> T request(HttpRequest.Builder builder, String url, Map<String, String> params, Map<String, String> headers, Function<String, T> function) {
         builder.timeout(timeout);
 
-        if (headers != null) {
+        if (ObjectUtils.isNotEmpty(headers)) {
             params.forEach(builder::header);
         }
 

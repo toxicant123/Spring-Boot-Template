@@ -1,6 +1,6 @@
 package com.toxicant123.annotation;
 
-import com.toxicant123.util.validator.PasswordValidator;
+import com.toxicant123.util.validator.UsernameValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -17,10 +17,10 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = PasswordValidator.class)
-public @interface Password {
+@Constraint(validatedBy = UsernameValidator.class)
+public @interface Username {
 
-    String message() default "password is illegal";
+    String message() default "username is illegal";
 
     Class<?>[] groups() default {};
 

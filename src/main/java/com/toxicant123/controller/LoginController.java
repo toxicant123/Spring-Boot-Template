@@ -24,9 +24,6 @@ public class LoginController {
     @PostMapping
     public LoginVO login(@RequestBody @Validated LoginParam param) {
 
-        if (!StringUtils.equals(param.getUsername(), param.getPassword())) {
-            // throw new LoginException();
-        }
 
         var loginVO = new LoginVO();
         return loginVO;

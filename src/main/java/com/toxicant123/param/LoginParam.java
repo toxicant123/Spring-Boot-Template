@@ -1,7 +1,7 @@
 package com.toxicant123.param;
 
 import com.toxicant123.annotation.Password;
-import jakarta.validation.constraints.NotNull;
+import com.toxicant123.annotation.Username;
 import lombok.Data;
 
 /**
@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 public class LoginParam {
 
-    @NotNull(message = "username can not be null")
+    @Username
     private String username;
 
     @Password

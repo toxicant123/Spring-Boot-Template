@@ -107,13 +107,13 @@ public class HTTP {
                     .map(entry -> URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8)
                             + "="
                             + URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8))
-                    .collect(Collectors.joining("?", "&", ""));
+                    .collect(Collectors.joining("&", "?", ""));
         }
 
         builder.uri(URI.create(url));
 
         if (ObjectUtils.isNotEmpty(headers)) {
-            params.forEach(builder::header);
+            headers.forEach(builder::header);
         }
 
         var request = builder.build();

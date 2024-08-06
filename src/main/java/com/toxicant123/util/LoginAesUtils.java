@@ -16,7 +16,7 @@ import java.util.Base64;
  * @create 2024-07-22 上午1:50
  */
 @Slf4j
-public class AesUtil {
+public class LoginAesUtils {
 
     private static final String ALGORITHM = "AES";
 
@@ -49,7 +49,7 @@ public class AesUtil {
                  | InvalidKeyException
                  | IllegalBlockSizeException
                  | BadPaddingException e) {
-            log.error("AesUtil.encrypt error", e);
+            log.error("LoginAesUtils.encrypt error", e);
         }
         return result;
     }
@@ -66,7 +66,7 @@ public class AesUtil {
                  | InvalidKeyException
                  | IllegalBlockSizeException
                  | BadPaddingException e) {
-            log.error("AesUtil.decrypt error", e);
+            log.error("LoginAesUtils.decrypt error", e);
         }
         return result;
     }

@@ -7,6 +7,8 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -14,6 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author toxicant123
@@ -96,6 +99,18 @@ public class HTTP {
 
     private static <T> T request(HttpRequest.Builder builder, String url, Map<String, String> params, Map<String, String> headers, Function<String, T> function) {
         builder.timeout(timeout);
+
+        if (ObjectUtils.isNotEmpty(params)) {
+            url += params
+                    .entrySet()
+                    .stream()
+                    .map(entry -> URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8)
+                            + "="
+                            + URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8))
+                    .collect(Collectors.joining("?", "&", ""));
+        }
+
+        builder.uri(URI.create(url));
 
         if (ObjectUtils.isNotEmpty(headers)) {
             params.forEach(builder::header);

@@ -1,6 +1,5 @@
 package com.toxicant123.controller;
 
-import com.toxicant123.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +37,6 @@ public class ErrorController {
     @GetMapping("/error3")
     public String error3() {
         if (1 > Math.random()) {
-            throw new BusinessException(502, "error3");
         }
         return "error3";
     }

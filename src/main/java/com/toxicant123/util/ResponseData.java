@@ -3,7 +3,6 @@ package com.toxicant123.util;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.springframework.http.HttpStatus;
 
 import java.util.Date;
 
@@ -17,9 +16,11 @@ import java.util.Date;
 @Accessors(chain = true)
 public class ResponseData<T> {
 
-    private Integer code;
+    private String errorCode = "00000";
 
-    private String message;
+    private String errorMessage = "success";
+
+    private String userMessage;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date time = new Date();
@@ -29,23 +30,8 @@ public class ResponseData<T> {
     private String uuid;
 
     public static <T> ResponseData<T> success(T data) {
-        return success(data, "success");
-    }
-
-    public static <T> ResponseData<T> success(T data, String message) {
-        return success(data, message, HttpStatus.OK.value());
-    }
-
-    public static <T> ResponseData<T> success(T data, String message, Integer code) {
-        return success(data, message, code, null);
-    }
-
-    public static <T> ResponseData<T> success(T data, String message, Integer code, String uuid) {
         return new ResponseData<T>()
-                .setData(data)
-                .setMessage(message)
-                .setCode(code)
-                .setUuid(uuid);
+                .setData(data);
     }
 
     public static <T> ResponseData<T> fail(T data) {
@@ -53,18 +39,18 @@ public class ResponseData<T> {
     }
 
     public static <T> ResponseData<T> fail(T data, String message) {
-        return fail(data, message, HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return fail(data, message, null);
     }
 
-    public static <T> ResponseData<T> fail(T data, String message, Integer code) {
+    public static <T> ResponseData<T> fail(T data, String message, String code) {
         return fail(data, message, code, null);
     }
 
-    public static <T> ResponseData<T> fail(T data, String message, Integer code, String uuid) {
+    public static <T> ResponseData<T> fail(T data, String message, String code, String uuid) {
         return new ResponseData<T>()
                 .setData(data)
-                .setMessage(message)
-                .setCode(code)
+                .setErrorMessage(message)
+                .setErrorCode(code)
                 .setUuid(uuid);
     }
 }

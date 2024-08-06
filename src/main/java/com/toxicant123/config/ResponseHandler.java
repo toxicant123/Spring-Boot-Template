@@ -2,7 +2,7 @@ package com.toxicant123.config;
 
 import com.alibaba.fastjson2.JSON;
 import com.toxicant123.constant.BusinessExceptionConstant;
-import com.toxicant123.exception.BusinessException;
+import com.toxicant123.exception.BusinessExceptionInterface;
 import com.toxicant123.util.ResponseData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -57,7 +57,7 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
     public ResponseData<?> handleAllExceptions(Exception ex) {
         var uuid = UUID.randomUUID().toString();
 
-        if (ex instanceof BusinessException be) {
+        if (ex instanceof BusinessExceptionInterface be) {
             log.error("uuid: {}, error detail: {}", uuid, JSON.toJSONString(be.getDetails()), ex);
 
             return ResponseData.fail(null, be.getMessage(), be.getCode(), uuid);

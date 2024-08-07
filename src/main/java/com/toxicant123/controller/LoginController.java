@@ -1,8 +1,10 @@
 package com.toxicant123.controller;
 
+import com.toxicant123.service.LoginService;
 import com.toxicant123.vo.LoginVO;
 import com.toxicant123.param.LoginParam;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,11 +22,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 public class LoginController {
 
+    @Autowired
+    private LoginService loginService;
+
     @PostMapping("/usernameAndPassword")
     public LoginVO login(@RequestBody @Validated LoginParam param) {
 
+        var userLoginBO = loginService.getUserLoginBOByUsernameAndPassword(param);
 
-        var loginVO = new LoginVO();
-        return loginVO;
+        return new LoginVO()
+                .setToken(userLoginBO.encode());
     }
 }

@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,6 +20,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class LoginServiceImpl implements LoginService {
+
+    @Value("${login.token.expire-time}")
+    private Integer loginTokenExpireTime;
 
     @Autowired
     private UserAuthRepository userAuthRepository;
@@ -35,6 +39,8 @@ public class LoginServiceImpl implements LoginService {
         if (!StringUtils.equals(userAuth.getPassword(), param.getPassword())) {
 
         }
+
+        var userLogin = new UserLoginBO();
 
         return null;
     }

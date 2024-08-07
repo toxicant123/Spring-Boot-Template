@@ -40,44 +40,26 @@ public class UsernameValidator implements ConstraintValidator<Password, String> 
             return false;
         }
 
-        int conditionNum = 3;
-
-        boolean numberCondition = true;
-        boolean letterCondition = true;
-        boolean specialCharCondition = true;
-
         for (char c : username.toCharArray()) {
             if (!CharUtils.isAscii(c)) {
                 return false;
             }
 
             if (CharUtils.isAsciiNumeric(c)) {
-                if (numberCondition) {
-                    conditionNum--;
-                    numberCondition = false;
-                }
                 continue;
             }
 
             if (CharUtils.isAsciiAlpha(c)) {
-                if (letterCondition) {
-                    conditionNum--;
-                    letterCondition = false;
-                }
                 continue;
             }
 
             if (USERNAME_SPECIAL_CHARACTER_SET.contains(c)) {
-                if (specialCharCondition) {
-                    conditionNum--;
-                    specialCharCondition = false;
-                }
                 continue;
             }
 
             return false;
         }
 
-        return conditionNum == 0;
+        return true;
     }
 }

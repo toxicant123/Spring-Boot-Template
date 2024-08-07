@@ -7,9 +7,12 @@ import com.toxicant123.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * @author toxicant123
@@ -42,6 +45,8 @@ public class LoginServiceImpl implements LoginService {
 
         var userLogin = new UserLoginBO();
 
-        return null;
+        userLogin.setExpireTime(DateUtils.addMinutes(new Date(), loginTokenExpireTime));
+
+        return userLogin;
     }
 }

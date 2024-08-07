@@ -1,9 +1,8 @@
 package com.toxicant123.repository;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.toxicant123.param.UserParam;
 import com.toxicant123.entity.UserDO;
-import org.springframework.stereotype.Repository;
+import com.toxicant123.param.UserParam;
 
 /**
  * @author toxicant123
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Repository;
  * @Description
  * @create 2024-07-14 上午11:50
  */
-@Repository
 public interface UserRepository {
 
     UserDO getUserById(Long id);

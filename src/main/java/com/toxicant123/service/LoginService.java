@@ -10,5 +10,6 @@ import com.toxicant123.param.LoginParam;
  * @create 2024-08-07 下午8:47
  */
 public interface LoginService {
+
     UserLoginBO getUserLoginBOByUsernameAndPassword(LoginParam param);
 }

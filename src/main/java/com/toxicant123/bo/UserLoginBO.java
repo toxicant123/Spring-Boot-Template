@@ -1,6 +1,7 @@
 package com.toxicant123.bo;
 
 import com.alibaba.fastjson2.util.DateUtils;
+import com.toxicant123.util.LoginAesUtils;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -28,9 +29,9 @@ public class UserLoginBO {
 
     private Date expireTime;
 
-    public static UserLoginBO decode(String userInfo) {
+    public static UserLoginBO decode(String token) {
 
-        String[] userInfoArr = userInfo.split(USER_LOGIN_DETAIL_DELIMITER);
+        var userInfoArr = LoginAesUtils.decrypt(token).split(USER_LOGIN_DETAIL_DELIMITER);
 
         return new UserLoginBO()
                 .setUserId(Long.parseLong(userInfoArr[0]))
@@ -39,10 +40,11 @@ public class UserLoginBO {
     }
 
     public String encode() {
-        return String.join(USER_LOGIN_DETAIL_DELIMITER,
-                userId.toString(),
-                String.join(USER_ROLE_DELIMITER, userRoles),
-                DateUtils.format(expireTime)
-        );
+        return LoginAesUtils.encrypt(
+                String.join(USER_LOGIN_DETAIL_DELIMITER,
+                        userId.toString(),
+                        String.join(USER_ROLE_DELIMITER, userRoles),
+                        DateUtils.format(expireTime)
+                ));
     }
 }

@@ -1,6 +1,6 @@
 package com.toxicant123.util.validator;
 
-import com.toxicant123.annotation.Password;
+import com.toxicant123.annotation.Username;
 import com.toxicant123.enums.SpecialCharEnum;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -19,7 +19,7 @@ import java.util.stream.Stream;
  * @create 2024-08-06 下午11:56
  */
 @Slf4j
-public class UsernameValidator implements ConstraintValidator<Password, String> {
+public class UsernameValidator implements ConstraintValidator<Username, String> {
 
     private static final Set<Character> USERNAME_SPECIAL_CHARACTER_SET = Stream
             .of(

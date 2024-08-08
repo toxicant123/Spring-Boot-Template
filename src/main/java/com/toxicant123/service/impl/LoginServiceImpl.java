@@ -1,6 +1,8 @@
 package com.toxicant123.service.impl;
 
 import com.toxicant123.bo.UserLoginBO;
+import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
+import com.toxicant123.exception.unchecked.LoginException;
 import com.toxicant123.param.LoginParam;
 import com.toxicant123.repository.UserAuthRepository;
 import com.toxicant123.repository.UserRoleRepository;
@@ -41,11 +43,11 @@ public class LoginServiceImpl implements LoginService {
         var userAuth = userAuthRepository.queryPasswordByUsername(param.getUsername());
 
         if (ObjectUtils.isEmpty(userAuth)) {
-
+            throw new LoginException(ErrorCodeAndUserMessageEnum.A0210, "username is not exist");
         }
 
         if (!StringUtils.equals(userAuth.getPassword(), param.getPassword())) {
-
+            throw new LoginException(ErrorCodeAndUserMessageEnum.A0210, "username-" + param.getUsername() + "'s password is incorrect");
         }
 
         return new UserLoginBO()

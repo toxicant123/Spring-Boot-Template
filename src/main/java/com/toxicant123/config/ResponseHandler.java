@@ -1,7 +1,6 @@
 package com.toxicant123.config;
 
-import com.alibaba.fastjson2.JSON;
-import com.toxicant123.constant.BusinessExceptionConstant;
+import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
 import com.toxicant123.exception.BusinessExceptionInterface;
 import com.toxicant123.util.ResponseData;
 import lombok.extern.slf4j.Slf4j;
@@ -58,9 +57,9 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
         var uuid = UUID.randomUUID().toString();
 
         if (ex instanceof BusinessExceptionInterface be) {
-            log.error("uuid: {}, error detail: {}", uuid, JSON.toJSONString(be.getDetails()), ex);
+            log.error("uuid: {}, error detail: {}", uuid, be.getErrorMessage(), ex);
 
-            return ResponseData.fail(null, be.getMessage(), be.getCode(), uuid);
+            return ResponseData.fail(null, be.getErrorCode(), be.getErrorMessage(), be.getUserMessage(), uuid);
         } else if (ex instanceof MethodArgumentNotValidException mae) {
             log.error("uuid: {}, method argument not valid", uuid, ex);
 
@@ -69,11 +68,15 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
             if (ObjectUtils.isNotEmpty(fieldError)) {
                 message = fieldError.getDefaultMessage();
             }
-            return ResponseData.fail(null, message, BusinessExceptionConstant.FIELD_NOT_VALID, uuid);
+            return ResponseData.fail(null, ErrorCodeAndUserMessageEnum.A0400.name(), message, ErrorCodeAndUserMessageEnum.A0400.getUserMessage(), uuid);
         } else {
             log.error("uuid: {}, error happened", uuid, ex);
 
-            return ResponseData.fail(null, HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), HttpStatus.INTERNAL_SERVER_ERROR.value(), uuid);
+            return ResponseData.fail(null,
+                    ErrorCodeAndUserMessageEnum.B0001.name(),
+                    HttpStatus.INTERNAL_SERVER_ERROR.name(),
+                    ErrorCodeAndUserMessageEnum.B0001.getUserMessage(),
+                    uuid);
         }
     }
 }

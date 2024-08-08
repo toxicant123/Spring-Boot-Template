@@ -34,23 +34,12 @@ public class ResponseData<T> {
                 .setData(data);
     }
 
-    public static <T> ResponseData<T> fail(T data) {
-        return fail(data, "fail");
-    }
-
-    public static <T> ResponseData<T> fail(T data, String message) {
-        return fail(data, message, null);
-    }
-
-    public static <T> ResponseData<T> fail(T data, String message, String code) {
-        return fail(data, message, code, null);
-    }
-
-    public static <T> ResponseData<T> fail(T data, String message, String code, String uuid) {
+    public static <T> ResponseData<T> fail(T data, String errorCode, String errorMessage, String userMessage, String uuid) {
         return new ResponseData<T>()
                 .setData(data)
-                .setErrorMessage(message)
-                .setErrorCode(code)
+                .setErrorCode(errorCode)
+                .setErrorMessage(errorMessage)
+                .setUserMessage(userMessage)
                 .setUuid(uuid);
     }
 }

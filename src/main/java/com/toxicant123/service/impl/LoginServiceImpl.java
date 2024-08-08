@@ -3,6 +3,7 @@ package com.toxicant123.service.impl;
 import com.toxicant123.bo.UserLoginBO;
 import com.toxicant123.param.LoginParam;
 import com.toxicant123.repository.UserAuthRepository;
+import com.toxicant123.repository.UserRoleRepository;
 import com.toxicant123.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashSet;
 
 /**
  * @author toxicant123
@@ -30,6 +32,9 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserAuthRepository userAuthRepository;
 
+    @Autowired
+    private UserRoleRepository userRoleRepository;
+
     @Override
     public UserLoginBO getUserLoginBOByUsernameAndPassword(LoginParam param) {
 
@@ -43,10 +48,9 @@ public class LoginServiceImpl implements LoginService {
 
         }
 
-        var userLogin = new UserLoginBO();
-
-        userLogin.setExpireTime(DateUtils.addMinutes(new Date(), loginTokenExpireTime));
-
-        return userLogin;
+        return new UserLoginBO()
+                .setUserId(userAuth.getId())
+                .setUserRoles(new HashSet<>(userRoleRepository.queryUserRoleById(userAuth.getId())))
+                .setExpireTime(DateUtils.addMinutes(new Date(), loginTokenExpireTime));
     }
 }

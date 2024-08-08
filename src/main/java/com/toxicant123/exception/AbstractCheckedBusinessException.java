@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AbstractCheckedBusinessException extends Exception implements BusinessExceptionInterface {
+public abstract class AbstractCheckedBusinessException extends Exception implements BusinessExceptionInterface {
 
     String errorCode;
 

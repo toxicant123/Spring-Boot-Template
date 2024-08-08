@@ -1,5 +1,6 @@
 package com.toxicant123.exception;
 
+import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,11 +12,28 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AbstractUncheckedBusinessException extends RuntimeException implements BusinessExceptionInterface {
+public abstract class AbstractUncheckedBusinessException extends RuntimeException implements BusinessExceptionInterface {
 
-    String errorCode;
+    protected String errorCode;
 
-    String errorMessage;
+    protected String errorMessage;
 
-    String userMessage;
+    protected String userMessage;
+
+    public AbstractUncheckedBusinessException() {
+
+    }
+
+    public AbstractUncheckedBusinessException(String errorCode, String errorMessage, String userMessage) {
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
+        this.userMessage = userMessage;
+    }
+
+    public AbstractUncheckedBusinessException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage) {
+        this.errorCode = errorCodeAndUserMessageEnum.name();
+        this.errorMessage = errorMessage;
+        this.userMessage = errorCodeAndUserMessageEnum.getUserMessage();
+    }
+
 }

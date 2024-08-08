@@ -13,7 +13,8 @@ public enum ErrorCodeAndUserMessageEnum {
 
     A0210("用户名或密码错误"),
     A0400("请检查您的输入是否正确"),
-    B0001("系统出错，请稍后再试");
+    B0001("系统出错，请稍后再试"),
+    C0110("外部服务出错，请稍后再试");
 
     ErrorCodeAndUserMessageEnum(String userMessage) {
         this.userMessage = userMessage;

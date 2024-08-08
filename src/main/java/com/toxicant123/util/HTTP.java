@@ -2,6 +2,8 @@ package com.toxicant123.util;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
+import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
+import com.toxicant123.exception.unchecked.HttpException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.HttpStatus;
@@ -118,20 +120,22 @@ public class HTTP {
 
         var request = builder.build();
 
-        var result = (T) null;
+        var response = (HttpResponse<String>) null;
+
         try {
-            var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-            var statusCode = response.statusCode();
-
-            if (statusCode >= HttpStatus.BAD_REQUEST.value()) {
-                throw new RuntimeException();
-            }
-
-            var responseBody = response.body();
-            result = function.apply(responseBody);
+            response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (IOException | InterruptedException e) {
-
+            throw new HttpException(ErrorCodeAndUserMessageEnum.C0110, "http request error, url is " + url);
         }
-        return result;
+
+        var statusCode = response.statusCode();
+
+        if (statusCode >= HttpStatus.BAD_REQUEST.value()) {
+            throw new HttpException(ErrorCodeAndUserMessageEnum.C0110, "http request url failed, url is " + url + ", response is " + response.body());
+        }
+
+        var responseBody = response.body();
+
+        return function.apply(responseBody);
     }
 }

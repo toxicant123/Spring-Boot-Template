@@ -22,8 +22,8 @@ public class UserAuthRepositoryImpl implements UserAuthRepository {
     @Override
     public UserAuthDO queryPasswordByUsername(String username) {
         return userAuthDao.selectOne(new LambdaQueryWrapper<UserAuthDO>()
-                .select(UserAuthDO::getId)
-                .select(UserAuthDO::getPassword)
+                .select(UserAuthDO::getId,
+                        UserAuthDO::getPassword)
                 .eq(UserAuthDO::getUsername, username));
     }
 }

@@ -26,7 +26,6 @@ import java.util.Date;
 public class AuthInterceptor implements HandlerInterceptor {
 
     private static final String AUTH_HEADER = "auth";
-    ;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

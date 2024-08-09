@@ -2,8 +2,9 @@ package com.toxicant123.config;
 
 import com.toxicant123.annotation.RequireRole;
 import com.toxicant123.bo.UserLoginBO;
+import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
+import com.toxicant123.exception.unchecked.AuthException;
 import com.toxicant123.util.UserLoginUtils;
-import jakarta.security.auth.message.AuthException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
+
 
 /**
  * @author toxicant123
@@ -32,19 +34,20 @@ public class AuthInterceptor implements HandlerInterceptor {
             var token = request.getHeader(AUTH_HEADER);
 
             if (ObjectUtils.isEmpty(token)) {
-                throw new AuthException();
+                throw new AuthException(ErrorCodeAndUserMessageEnum.A0251, "user login token is empty");
             }
 
             var userLogin = UserLoginBO.decode(token);
 
-            if (new Date().compareTo(userLogin.getExpireTime()) < 0) {
-                throw new AuthException();
+            if (new Date().compareTo(userLogin.getExpireTime()) >= 0) {
+                throw new AuthException(ErrorCodeAndUserMessageEnum.A0230, "user login token expired");
             }
 
-            var annotation = hm.getMethod().getAnnotation(RequireRole.class);
+            var method = hm.getMethod();
+            var annotation = method.getAnnotation(RequireRole.class);
 
             if (ObjectUtils.isEmpty(annotation)) {
-                throw new AuthException();
+                throw new AuthException(ErrorCodeAndUserMessageEnum.B0501, "required method-" + method.getName() + " didn't set required role");
             }
 
             boolean hasRole = false;
@@ -56,7 +59,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             }
 
             if (!hasRole) {
-                throw new AuthException();
+                throw new AuthException(ErrorCodeAndUserMessageEnum.A0301, "user didn't have required role");
             }
 
             UserLoginUtils.setUserLoginBO(userLogin);

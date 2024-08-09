@@ -50,7 +50,7 @@ public class LoginAesUtils {
                  | InvalidKeyException
                  | IllegalBlockSizeException
                  | BadPaddingException e) {
-            throw new LoginException(ErrorCodeAndUserMessageEnum.A0350, "LoginAesUtils.encrypt error");
+            throw new LoginException(ErrorCodeAndUserMessageEnum.A0250, "LoginAesUtils.encrypt error");
         }
     }
 
@@ -66,7 +66,7 @@ public class LoginAesUtils {
                  | InvalidKeyException
                  | IllegalBlockSizeException
                  | BadPaddingException e) {
-            throw new LoginException(ErrorCodeAndUserMessageEnum.A0350, "LoginAesUtils.decrypt error");
+            throw new LoginException(ErrorCodeAndUserMessageEnum.A0250, "LoginAesUtils.decrypt error");
         }
     }
 }

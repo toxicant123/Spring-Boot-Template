@@ -1,5 +1,7 @@
 package com.toxicant123.controller;
 
+import com.toxicant123.annotation.RequireRole;
+import com.toxicant123.constant.UserRoleConstant;
 import com.toxicant123.param.AnimalParam;
 import com.toxicant123.util.ResponseData;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +39,7 @@ public class AnimalController {
     }
 
     @GetMapping("/count")
+    @RequireRole(UserRoleConstant.USER_ROLE_ADMIN)
     public Integer animalCount() {
         return 100;
     }

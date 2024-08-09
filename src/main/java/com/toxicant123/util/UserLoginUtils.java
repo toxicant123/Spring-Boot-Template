@@ -19,4 +19,8 @@ public class UserLoginUtils {
     public static UserLoginBO getUserLoginBO() {
         return USER_LOGIN_BO_THREAD_LOCAL.get();
     }
+
+    public static void clearUserLoginBO() {
+        USER_LOGIN_BO_THREAD_LOCAL.remove();
+    }
 }

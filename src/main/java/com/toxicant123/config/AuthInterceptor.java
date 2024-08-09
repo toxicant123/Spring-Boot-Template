@@ -8,10 +8,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Date;
 
 /**
  * @author toxicant123
@@ -20,19 +21,25 @@ import org.springframework.web.servlet.ModelAndView;
  * @create 2024-08-09 下午1:10
  */
 @Slf4j
-@Component
 public class AuthInterceptor implements HandlerInterceptor {
+
+    private static final String AUTH_HEADER = "auth";
+    ;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod hm) {
-            var token = request.getHeader("auth");
+            var token = request.getHeader(AUTH_HEADER);
 
             if (ObjectUtils.isEmpty(token)) {
                 throw new AuthException();
             }
 
             var userLogin = UserLoginBO.decode(token);
+
+            if (new Date().compareTo(userLogin.getExpireTime()) < 0) {
+                throw new AuthException();
+            }
 
             var annotation = hm.getMethod().getAnnotation(RequireRole.class);
 
@@ -53,11 +60,8 @@ public class AuthInterceptor implements HandlerInterceptor {
             }
 
             UserLoginUtils.setUserLoginBO(userLogin);
-
-            return true;
-        } else {
-            return false;
         }
+        return true;
     }
 
     @Override

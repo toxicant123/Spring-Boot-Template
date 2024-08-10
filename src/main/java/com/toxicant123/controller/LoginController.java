@@ -22,11 +22,6 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @GetMapping("/verify")
-    public String verify() {
-        return "success";
-    }
-
     @PostMapping("/usernameAndPassword")
     public LoginVO login(@RequestBody @Validated LoginParam param) {
 

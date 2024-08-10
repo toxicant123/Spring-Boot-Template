@@ -45,7 +45,8 @@ public class WebConfig implements WebMvcConfigurer {
                         HelloController.class,
                         LoginController.class,
                         ObjectController.class,
-                        UserController.class)
+                        UserController.class,
+                        VerifyController.class)
                 .contains(clazz));
     }
 }

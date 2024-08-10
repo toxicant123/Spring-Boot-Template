@@ -25,7 +25,7 @@ public class UserRoleRepositoryImpl implements UserRoleRepository {
     public List<String> queryUserRoleById(Long id) {
         return userRoleDao.selectList(new LambdaQueryWrapper<UserRoleDO>()
                         .select(UserRoleDO::getRole)
-                        .eq(UserRoleDO::getId, id))
+                        .eq(UserRoleDO::getUserId, id))
                 .stream()
                 .map(UserRoleDO::getRole)
                 .toList();

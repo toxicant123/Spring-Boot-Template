@@ -1,6 +1,7 @@
 package com.toxicant123.enums;
 
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author toxicant123
@@ -15,16 +16,16 @@ public enum ErrorCodeAndUserMessageEnum {
     A0210("用户名或密码错误"),
 
     //  用户端错误 - 用户登录异常 - 用户登录已过期
-    A0230("登录状态过期，请重新登录"),
+    A0230("登录状态过期，请重新登录", HttpStatus.UNAUTHORIZED),
 
     // 用户端错误 - 用户登录异常 - 用户凭据异常
-    A0250("登录凭据出错，请重新登录"),
+    A0250("登录凭据出错，请重新登录", HttpStatus.UNAUTHORIZED),
 
-    // 用户端错误 - 用户登录异常 - 用户凭据异常
-    A0251("缺少登录凭据，请重新登录"),
+    // 用户端错误 - 用户登录异常 - 用户凭据异常 - 缺少凭据
+    A0251("缺少登录凭据，请重新登录", HttpStatus.UNAUTHORIZED),
 
     // 用户端错误 - 访问权限异常 - 访问未授权
-    A0301("暂无权限访问"),
+    A0301("暂无权限访问", HttpStatus.FORBIDDEN),
 
     // 用户端错误 - 用户请求参数错误
     A0400("请检查您的输入是否正确"),
@@ -45,5 +46,12 @@ public enum ErrorCodeAndUserMessageEnum {
         this.userMessage = userMessage;
     }
 
+    ErrorCodeAndUserMessageEnum(String userMessage, HttpStatus httpStatusCode) {
+        this.userMessage = userMessage;
+        this.httpStatusCode = httpStatusCode;
+    }
+
     private final String userMessage;
+
+    private HttpStatus httpStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 }

@@ -2,6 +2,7 @@ package com.toxicant123.exception;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author toxicant123
@@ -13,9 +14,11 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractCheckedBusinessException extends Exception implements BusinessExceptionInterface {
 
-    String errorCode;
+    protected String errorCode;
 
-    String errorMessage;
+    protected String errorMessage;
 
-    String userMessage;
+    protected String userMessage;
+
+    protected HttpStatus httpStatus;
 }

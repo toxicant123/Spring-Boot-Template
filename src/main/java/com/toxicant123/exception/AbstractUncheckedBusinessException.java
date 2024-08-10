@@ -3,6 +3,7 @@ package com.toxicant123.exception;
 import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author toxicant123
@@ -20,20 +21,24 @@ public abstract class AbstractUncheckedBusinessException extends RuntimeExceptio
 
     protected String userMessage;
 
+    protected HttpStatus httpStatus;
+
     public AbstractUncheckedBusinessException() {
 
     }
 
-    public AbstractUncheckedBusinessException(String errorCode, String errorMessage, String userMessage) {
+    public AbstractUncheckedBusinessException(String errorCode, String errorMessage, String userMessage, HttpStatus httpStatus) {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
         this.userMessage = userMessage;
+        this.httpStatus = httpStatus;
     }
 
     public AbstractUncheckedBusinessException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage) {
         this.errorCode = errorCodeAndUserMessageEnum.name();
         this.errorMessage = errorMessage;
         this.userMessage = errorCodeAndUserMessageEnum.getUserMessage();
+        this.httpStatus = errorCodeAndUserMessageEnum.getHttpStatusCode();
     }
 
 }

@@ -13,7 +13,6 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -29,15 +28,11 @@ import java.util.UUID;
 @RestControllerAdvice
 public class ResponseHandler implements ResponseBodyAdvice<Object> {
 
+    private static final ThreadLocal<HttpStatus> EXCEPTION_STATUS_CODE = new ThreadLocal<>();
 
     @Override
     public boolean supports(MethodParameter returnType,
                             Class<? extends HttpMessageConverter<?>> converterType) {
-
-        if (ResponseData.class.isAssignableFrom(returnType.getParameterType())) {
-            return false;
-        }
-
         return true;
     }
 
@@ -48,15 +43,23 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
                                   Class<? extends HttpMessageConverter<?>> selectedConverterType,
                                   ServerHttpRequest request,
                                   ServerHttpResponse response) {
+
+        if (body instanceof ResponseData<?> rd) {
+            response.setStatusCode(EXCEPTION_STATUS_CODE.get());
+            EXCEPTION_STATUS_CODE.remove();
+            return rd;
+        }
+
         return ResponseData.success(body);
     }
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseData<?> handleAllExceptions(Exception ex) {
         var uuid = UUID.randomUUID().toString();
+        EXCEPTION_STATUS_CODE.set(HttpStatus.INTERNAL_SERVER_ERROR);
 
         if (ex instanceof BusinessExceptionInterface be) {
+            EXCEPTION_STATUS_CODE.set(be.getHttpStatus());
             log.error("uuid: {}, error detail: {}", uuid, be.getErrorMessage(), ex);
 
             return ResponseData.fail(null, be.getErrorCode(), be.getErrorMessage(), be.getUserMessage(), uuid);

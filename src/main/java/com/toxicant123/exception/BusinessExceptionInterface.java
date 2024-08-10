@@ -1,5 +1,7 @@
 package com.toxicant123.exception;
 
+import org.springframework.http.HttpStatus;
+
 /**
  * @author toxicant123
  * @version 1.0
@@ -13,4 +15,6 @@ public interface BusinessExceptionInterface {
     String getErrorMessage();
 
     String getUserMessage();
+
+    HttpStatus getHttpStatus();
 }

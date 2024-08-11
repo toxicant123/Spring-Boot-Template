@@ -28,6 +28,7 @@ public abstract class AbstractUncheckedBusinessException extends RuntimeExceptio
     }
 
     public AbstractUncheckedBusinessException(String errorCode, String errorMessage, String userMessage, HttpStatus httpStatus) {
+        super(errorMessage);
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
         this.userMessage = userMessage;
@@ -35,6 +36,7 @@ public abstract class AbstractUncheckedBusinessException extends RuntimeExceptio
     }
 
     public AbstractUncheckedBusinessException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage) {
+        super(errorMessage);
         this.errorCode = errorCodeAndUserMessageEnum.name();
         this.errorMessage = errorMessage;
         this.userMessage = errorCodeAndUserMessageEnum.getUserMessage();

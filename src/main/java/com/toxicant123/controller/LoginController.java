@@ -1,5 +1,8 @@
 package com.toxicant123.controller;
 
+import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
+import com.toxicant123.exception.unchecked.AccessException;
+import com.toxicant123.service.AccessCheckService;
 import com.toxicant123.service.LoginService;
 import com.toxicant123.vo.LoginVO;
 import com.toxicant123.param.LoginParam;
@@ -22,8 +25,15 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    @Autowired
+    private AccessCheckService accessCheckService;
+
     @PostMapping("/usernameAndPassword")
-    public LoginVO login(@RequestBody @Validated LoginParam param) {
+    public LoginVO usernameAndPassword(@RequestBody @Validated LoginParam param) {
+
+        if (accessCheckService.checkAccessIsIllegal()) {
+            throw new AccessException(ErrorCodeAndUserMessageEnum.B0501, "someone access LoginController.usernameAndPassword many times");
+        }
 
         var userLoginBO = loginService.getUserLoginBOByUsernameAndPassword(param);
 

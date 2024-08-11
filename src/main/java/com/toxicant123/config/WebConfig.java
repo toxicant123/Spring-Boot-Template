@@ -38,15 +38,15 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-        configurer.addPathPrefix("/api", clazz -> Set
-                .of(
-                        AnimalController.class,
-                        ErrorController.class,
-                        HelloController.class,
-                        LoginController.class,
-                        ObjectController.class,
-                        UserController.class,
-                        VerifyController.class)
-                .contains(clazz));
+        var apiSet = Set.of(
+                AnimalController.class,
+                ErrorController.class,
+                HelloController.class,
+                LoginController.class,
+                ObjectController.class,
+                UserController.class,
+                VerifyController.class);
+
+        configurer.addPathPrefix("/api", apiSet::contains);
     }
 }

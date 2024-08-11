@@ -8,7 +8,5 @@ package com.toxicant123.service;
  */
 public interface ValidateService {
 
-    void validate(Object o);
-
-    boolean isValidity(Object o);
+    boolean isValid(Object o);
 }

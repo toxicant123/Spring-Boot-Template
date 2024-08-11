@@ -2,9 +2,9 @@ package com.toxicant123.service.impl;
 
 import com.toxicant123.service.ValidateService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Validator;
 
 /**
@@ -20,15 +20,10 @@ public class ValidateServiceImpl implements ValidateService {
     @Autowired
     private Validator validator;
 
-
     @Override
-    public void validate(Object o) {
-        var errors = validator.validateObject(o);
-
-    }
-
-    @Override
-    public boolean isValidity(Object o) {
-        return ObjectUtils.isEmpty(validator.validateObject(o).getAllErrors());
+    public boolean isValid(Object o) {
+        var error = new BeanPropertyBindingResult(o, o.getClass().getName());
+        validator.validate(o, error);
+        return !error.hasErrors();
     }
 }

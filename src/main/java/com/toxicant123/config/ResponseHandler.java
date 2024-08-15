@@ -69,7 +69,7 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
             var message = "method argument not valid";
             var fieldError = mae.getFieldError();
             if (ObjectUtils.isNotEmpty(fieldError)) {
-                message = fieldError.getDefaultMessage();
+                message = fieldError.getField() + ": " + fieldError.getDefaultMessage();
             }
             return ResponseData.fail(null, ErrorCodeAndUserMessageEnum.A0400.name(), message, ErrorCodeAndUserMessageEnum.A0400.getUserMessage(), uuid);
         } else {

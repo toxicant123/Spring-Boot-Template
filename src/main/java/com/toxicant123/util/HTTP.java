@@ -94,8 +94,8 @@ public class HTTP {
     }
 
     private static HttpRequest.BodyPublisher getRequestBody(Object body) {
-        return body != null ?
-                HttpRequest.BodyPublishers.ofString(JSON.toJSONString(body), StandardCharsets.UTF_8)
+        return body != null
+                ? HttpRequest.BodyPublishers.ofString(JSON.toJSONString(body), StandardCharsets.UTF_8)
                 : HttpRequest.BodyPublishers.noBody();
     }
 

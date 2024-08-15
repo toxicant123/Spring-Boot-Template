@@ -1,5 +1,9 @@
 package com.toxicant123.util;
 
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 /**
  * @author toxicant123
  * @version 1.0
@@ -8,4 +12,17 @@ package com.toxicant123.util;
  */
 public class MapUtils {
 
+    public static <T> Map<String, String> convertToStringStringMap(Map<String, T> sourceMap) {
+        return sourceMap
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().toString()));
+    }
+
+    public static <T> Map<String, String> convertToStringStringMap(Map<String, T> sourceMap, Function<T, String> function) {
+        return sourceMap
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, ie -> function.apply(ie.getValue())));
+    }
 }

@@ -9,4 +9,6 @@ package com.toxicant123.service;
 public interface ValidateService {
 
     boolean isValid(Object o);
+
+    boolean isValid(Object o, Class<?>... clazz);
 }

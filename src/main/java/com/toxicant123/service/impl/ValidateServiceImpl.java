@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.Validator;
+import org.springframework.validation.SmartValidator;
 
 /**
  * @author toxicant123
@@ -18,12 +18,19 @@ import org.springframework.validation.Validator;
 public class ValidateServiceImpl implements ValidateService {
 
     @Autowired
-    private Validator validator;
+    private SmartValidator validator;
 
     @Override
     public boolean isValid(Object o) {
         var error = new BeanPropertyBindingResult(o, o.getClass().getName());
         validator.validate(o, error);
         return !error.hasErrors();
+    }
+
+    @Override
+    public boolean isValid(Object o, Class<?>... clazz) {
+        var error = new BeanPropertyBindingResult(o, o.getClass().getName());
+        validator.validate(o, error, (Object) clazz);
+        return false;
     }
 }

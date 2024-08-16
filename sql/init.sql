@@ -1,3 +1,7 @@
+create database template;
+
+use template;
+
 create table user_auth
 (
     id          bigint auto_increment

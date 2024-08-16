@@ -14,5 +14,9 @@ public class LoginException extends AbstractUncheckedBusinessException {
     public LoginException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage) {
         super(errorCodeAndUserMessageEnum, errorMessage);
     }
+
+    public LoginException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage, Throwable cause) {
+        super(errorCodeAndUserMessageEnum, errorMessage, cause);
+    }
 }
 

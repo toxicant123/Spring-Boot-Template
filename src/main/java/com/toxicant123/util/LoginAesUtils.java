@@ -34,7 +34,7 @@ public class LoginAesUtils {
             var keyBytes = secretKey.getEncoded();
             SECRET_KEY_SPEC = new SecretKeySpec(keyBytes, ALGORITHM);
         } catch (NoSuchAlgorithmException e) {
-            throw new LoginException(ErrorCodeAndUserMessageEnum.B0411, "NoSuchAlgorithm: " + ALGORITHM);
+            throw new LoginException(ErrorCodeAndUserMessageEnum.B0411, "NoSuchAlgorithm: " + ALGORITHM, e);
         }
     }
 
@@ -45,12 +45,12 @@ public class LoginAesUtils {
             var encryptedBytes = cipher.doFinal(text.getBytes());
             return Base64.getEncoder().encodeToString(encryptedBytes);
         } catch (NoSuchAlgorithmException e) {
-            throw new LoginException(ErrorCodeAndUserMessageEnum.B0411, "NoSuchAlgorithm: " + ALGORITHM);
+            throw new LoginException(ErrorCodeAndUserMessageEnum.B0411, "NoSuchAlgorithm: " + ALGORITHM, e);
         } catch (NoSuchPaddingException
                  | InvalidKeyException
                  | IllegalBlockSizeException
                  | BadPaddingException e) {
-            throw new LoginException(ErrorCodeAndUserMessageEnum.A0250, "LoginAesUtils.encrypt error");
+            throw new LoginException(ErrorCodeAndUserMessageEnum.A0250, "LoginAesUtils.encrypt error", e);
         }
     }
 
@@ -61,12 +61,12 @@ public class LoginAesUtils {
             var decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(ciphertext));
             return new String(decryptedBytes, StandardCharsets.UTF_8);
         } catch (NoSuchAlgorithmException e) {
-            throw new LoginException(ErrorCodeAndUserMessageEnum.B0411, "NoSuchAlgorithm: " + ALGORITHM);
+            throw new LoginException(ErrorCodeAndUserMessageEnum.B0411, "NoSuchAlgorithm: " + ALGORITHM, e);
         } catch (NoSuchPaddingException
                  | InvalidKeyException
                  | IllegalBlockSizeException
                  | BadPaddingException e) {
-            throw new LoginException(ErrorCodeAndUserMessageEnum.A0250, "LoginAesUtils.decrypt error");
+            throw new LoginException(ErrorCodeAndUserMessageEnum.A0250, "LoginAesUtils.decrypt error", e);
         }
     }
 }

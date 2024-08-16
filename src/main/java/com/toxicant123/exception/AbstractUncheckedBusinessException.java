@@ -43,4 +43,12 @@ public abstract class AbstractUncheckedBusinessException extends RuntimeExceptio
         this.httpStatus = errorCodeAndUserMessageEnum.getHttpStatusCode();
     }
 
+    public AbstractUncheckedBusinessException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage, Throwable cause) {
+        super(errorMessage, cause);
+        this.errorCode = errorCodeAndUserMessageEnum.name();
+        this.errorMessage = errorMessage;
+        this.userMessage = errorCodeAndUserMessageEnum.getUserMessage();
+        this.httpStatus = errorCodeAndUserMessageEnum.getHttpStatusCode();
+    }
+
 }

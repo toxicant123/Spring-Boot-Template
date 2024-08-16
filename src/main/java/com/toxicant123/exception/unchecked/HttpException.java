@@ -14,4 +14,8 @@ public class HttpException extends AbstractUncheckedBusinessException {
     public HttpException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage) {
         super(errorCodeAndUserMessageEnum, errorMessage);
     }
+
+    public HttpException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage, Throwable cause) {
+        super(errorCodeAndUserMessageEnum, errorMessage, cause);
+    }
 }

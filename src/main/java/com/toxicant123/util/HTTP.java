@@ -125,7 +125,7 @@ public class HTTP {
         try {
             response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (IOException | InterruptedException e) {
-            throw new HttpException(ErrorCodeAndUserMessageEnum.C0110, "http request error, url is " + url);
+            throw new HttpException(ErrorCodeAndUserMessageEnum.C0110, "http request error, url is " + url, e);
         }
 
         var statusCode = response.statusCode();

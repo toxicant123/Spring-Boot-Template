@@ -1,6 +1,7 @@
 package com.toxicant123.repository.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.toxicant123.constant.ExistFlagConstant;
 import com.toxicant123.dao.UserRoleDao;
 import com.toxicant123.entity.UserRoleDO;
 import com.toxicant123.repository.UserRoleRepository;
@@ -25,7 +26,9 @@ public class UserRoleRepositoryImpl implements UserRoleRepository {
     public List<String> queryUserRoleById(Long id) {
         return userRoleDao.selectList(new LambdaQueryWrapper<UserRoleDO>()
                         .select(UserRoleDO::getRole)
-                        .eq(UserRoleDO::getUserId, id))
+                        .eq(UserRoleDO::getUserId, id)
+                        .eq(UserRoleDO::getExistFlag, ExistFlagConstant.EXIST_FLAG)
+                )
                 .stream()
                 .map(UserRoleDO::getRole)
                 .toList();

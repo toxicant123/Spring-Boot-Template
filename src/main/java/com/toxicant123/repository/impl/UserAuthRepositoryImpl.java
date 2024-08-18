@@ -1,6 +1,7 @@
 package com.toxicant123.repository.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.toxicant123.constant.ExistFlagConstant;
 import com.toxicant123.dao.UserAuthDao;
 import com.toxicant123.entity.UserAuthDO;
 import com.toxicant123.repository.UserAuthRepository;
@@ -24,6 +25,8 @@ public class UserAuthRepositoryImpl implements UserAuthRepository {
         return userAuthDao.selectOne(new LambdaQueryWrapper<UserAuthDO>()
                 .select(UserAuthDO::getId,
                         UserAuthDO::getPassword)
-                .eq(UserAuthDO::getUsername, username));
+                .eq(UserAuthDO::getUsername, username)
+                .eq(UserAuthDO::getExistFlag, ExistFlagConstant.EXIST_FLAG)
+        );
     }
 }

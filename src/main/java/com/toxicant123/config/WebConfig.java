@@ -1,15 +1,14 @@
 package com.toxicant123.config;
 
-import com.toxicant123.controller.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author toxicant123
@@ -38,15 +37,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-        var apiSet = Set.of(
-                AnimalController.class,
-                ErrorController.class,
-                HelloController.class,
-                LoginController.class,
-                ObjectController.class,
-                UserController.class,
-                VerifyController.class);
-
-        configurer.addPathPrefix("/api", apiSet::contains);
+        configurer.addPathPrefix("/api",
+                clazz -> clazz.isAnnotationPresent(RestController.class));
     }
 }

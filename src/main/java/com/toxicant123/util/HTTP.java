@@ -83,38 +83,37 @@ public class HTTP {
         return post(url, null, typeReference);
     }
 
-    public static <T> T post(String url, Object body, Class<T> clazz) {
+    public static <T, B> T post(String url, B body, Class<T> clazz) {
         return post(url, body, null, clazz);
     }
 
-    public static <T> T post(String url, Object body, TypeReference<T> typeReference) {
+    public static <T, B> T post(String url, B body, TypeReference<T> typeReference) {
         return post(url, body, null, typeReference);
     }
 
-    public static <T> T post(String url, Object body, Map<String, String> params, Class<T> clazz) {
+    public static <T, B> T post(String url, B body, Map<String, String> params, Class<T> clazz) {
         return post(url, body, params, null, clazz);
     }
 
-    public static <T> T post(String url, Object body, Map<String, String> params, TypeReference<T> typeReference) {
+    public static <T, B> T post(String url, B body, Map<String, String> params, TypeReference<T> typeReference) {
         return post(url, body, params, null, typeReference);
     }
 
-    public static <T> T post(String url, Object body, Map<String, String> params, Map<String, String> headers, Class<T> clazz) {
+    public static <T, B> T post(String url, B body, Map<String, String> params, Map<String, String> headers, Class<T> clazz) {
         return request(getHttpRequestBuilder().POST(getRequestBody(body)), url, params, headers, classDefineJson(clazz));
     }
 
-    public static <T> T post(String url, Object body, Map<String, String> params, Map<String, String> headers, TypeReference<T> typeReference) {
+    public static <T, B> T post(String url, B body, Map<String, String> params, Map<String, String> headers, TypeReference<T> typeReference) {
         return request(getHttpRequestBuilder().POST(getRequestBody(body)), url, params, headers, typeReferenceDefineJson(typeReference));
     }
 
-    private static HttpRequest.BodyPublisher getRequestBody(Object body) {
+    private static <B> HttpRequest.BodyPublisher getRequestBody(B body) {
         return body != null
                 ? HttpRequest.BodyPublishers.ofString(JSON.toJSONString(body), StandardCharsets.UTF_8)
                 : HttpRequest.BodyPublishers.noBody();
     }
 
     private static <T> T request(HttpRequest.Builder builder, String url, Map<String, String> params, Map<String, String> headers, Function<String, T> function) {
-
         if (ObjectUtils.isNotEmpty(params)) {
             url += params
                     .entrySet()

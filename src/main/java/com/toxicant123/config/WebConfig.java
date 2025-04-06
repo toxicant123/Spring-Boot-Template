@@ -28,7 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         var unnecessaryAuthUrl = List.of(
                 "/api/login/*",
-                "/api/hello");
+                "/api/hello/**");
 
         registry.addInterceptor(new AuthInterceptor())
                 .addPathPatterns("/**") // 设置拦截器应用的路径模式

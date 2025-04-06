@@ -15,7 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserDao extends BaseMapper<UserDO> {
 
-    Long getUserNameLength(Long id);
-
     Page<UserDO> queryUserList(Page<UserDO> userPage, UserParam param);
 }

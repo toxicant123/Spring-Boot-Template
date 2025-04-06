@@ -4,10 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.toxicant123.dao.UserDao">
 
-    <select id="getUserNameLength" resultType="java.lang.Long">
-        select length(name) from user where id = #{id}
-    </select>
-
     <select id="queryUserList" resultType="com.toxicant123.entity.UserDO">
         select * from user where gender > #{param.minGender}
     </select>

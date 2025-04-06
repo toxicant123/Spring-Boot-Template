@@ -43,15 +43,25 @@ public class AuthInterceptor implements HandlerInterceptor {
                 throw new AuthException(ErrorCodeAndUserMessageEnum.A0230, "user login token expired");
             }
 
+            var roleArray = (String[]) null;
             var method = hm.getMethod();
-            var annotation = method.getAnnotation(RequireRole.class);
+            var methodAnnotation = method.getAnnotation(RequireRole.class);
 
-            if (ObjectUtils.isEmpty(annotation)) {
+            if (ObjectUtils.isEmpty(methodAnnotation)) {
+                var classAnnotation = hm.getBeanType().getAnnotation(RequireRole.class);
+                if (ObjectUtils.isNotEmpty(classAnnotation)) {
+                    roleArray = classAnnotation.value();
+                }
+            } else {
+                roleArray = methodAnnotation.value();
+            }
+
+            if (ObjectUtils.isEmpty(roleArray)) {
                 throw new AuthException(ErrorCodeAndUserMessageEnum.B0501, "required method-" + method.getName() + " didn't set required role");
             }
 
             boolean hasRole = false;
-            for (var s : annotation.value()) {
+            for (var s : roleArray) {
                 if (userLogin.getUserRoles().contains(s)) {
                     hasRole = true;
                     break;

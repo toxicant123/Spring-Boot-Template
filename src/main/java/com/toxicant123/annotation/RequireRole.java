@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * @Description
  * @create 2024-08-09 下午12:54
  */
-@Target({ElementType.METHOD})
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RequireRole {
 

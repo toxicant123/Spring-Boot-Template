@@ -14,7 +14,5 @@ public interface UserRepository {
 
     UserDO getUserById(Long id);
 
-    Long getUserNameLength(Long id);
-
     Page<UserDO> queryUserList(UserParam param);
 }

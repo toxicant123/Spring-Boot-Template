@@ -35,11 +35,6 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Long getUserNameLength(Long id) {
-        return userDao.getUserNameLength(id);
-    }
-
-    @Override
     public Page<UserDO> queryUserList(UserParam param) {
         return userDao.queryUserList(new Page<>(param.getCurPage(), param.getPageSize()), param);
     }

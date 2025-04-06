@@ -34,11 +34,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long getUserNameLength(Long id) {
-        return userRepository.getUserNameLength(id);
-    }
-
-    @Override
     public IPage<UserVO> queryUserList(UserParam param) {
         return userRepository
                 .queryUserList(param)

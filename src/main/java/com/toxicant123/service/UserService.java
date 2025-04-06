@@ -14,7 +14,5 @@ public interface UserService {
 
     UserVO getUserById(Long id);
 
-    Long getUserNameLength(Long id);
-
     IPage<UserVO> queryUserList(UserParam param);
 }

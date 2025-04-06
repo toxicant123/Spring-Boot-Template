@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface UserRoleRepository {
 
-    List<String>  queryUserRoleById(Long id);
+    List<String> queryUserRoleById(Long id);
 }

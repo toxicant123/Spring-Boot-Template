@@ -24,7 +24,6 @@ public abstract class AbstractUncheckedBusinessException extends RuntimeExceptio
     protected HttpStatus httpStatus;
 
     public AbstractUncheckedBusinessException() {
-
     }
 
     public AbstractUncheckedBusinessException(String errorCode, String errorMessage, String userMessage, HttpStatus httpStatus) {

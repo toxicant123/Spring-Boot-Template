@@ -2,7 +2,7 @@ package com.toxicant123.service.convert.impl;
 
 import com.toxicant123.entity.UserDO;
 import com.toxicant123.service.convert.UserConvertService;
-import com.toxicant123.vo.UserVO;
+import com.toxicant123.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +17,14 @@ import org.springframework.stereotype.Service;
 public class UserConvertServiceImpl implements UserConvertService {
 
     @Override
-    public UserVO convertUserDOToUserVO(UserDO userDO) {
-        var userVO = new UserVO();
+    public UserDTO convertUserDOToUserDTO(UserDO userDO) {
+        var userDTO = new UserDTO();
 
-        userVO.setName(userDO.getName());
-        userVO.setAge(userDO.getAge());
-        userVO.setGender(userDO.getGender());
-        userVO.setEmail(userDO.getEmail());
+        userDTO.setName(userDO.getName());
+        userDTO.setAge(userDO.getAge());
+        userDTO.setGender(userDO.getGender());
+        userDTO.setEmail(userDO.getEmail());
 
-        return userVO;
+        return userDTO;
     }
 }

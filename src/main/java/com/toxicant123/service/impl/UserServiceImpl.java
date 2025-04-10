@@ -5,7 +5,7 @@ import com.toxicant123.param.UserParam;
 import com.toxicant123.repository.UserRepository;
 import com.toxicant123.service.UserService;
 import com.toxicant123.service.convert.UserConvertService;
-import com.toxicant123.vo.UserVO;
+import com.toxicant123.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,16 +27,16 @@ public class UserServiceImpl implements UserService {
     private UserConvertService userConvertService;
 
     @Override
-    public UserVO getUserById(Long id) {
+    public UserDTO getUserById(Long id) {
         var userDO = userRepository.getUserById(id);
 
-        return userConvertService.convertUserDOToUserVO(userDO);
+        return userConvertService.convertUserDOToUserDTO(userDO);
     }
 
     @Override
-    public IPage<UserVO> queryUserList(UserParam param) {
+    public IPage<UserDTO> queryUserList(UserParam param) {
         return userRepository
                 .queryUserList(param)
-                .convert(userConvertService::convertUserDOToUserVO);
+                .convert(userConvertService::convertUserDOToUserDTO);
     }
 }

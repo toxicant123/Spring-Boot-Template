@@ -1,7 +1,7 @@
 package com.toxicant123.service.convert;
 
 import com.toxicant123.entity.UserDO;
-import com.toxicant123.vo.UserVO;
+import com.toxicant123.dto.UserDTO;
 
 /**
  * @author toxicant123
@@ -11,5 +11,5 @@ import com.toxicant123.vo.UserVO;
  */
 public interface UserConvertService {
 
-    UserVO convertUserDOToUserVO(UserDO userVO);
+    UserDTO convertUserDOToUserDTO(UserDO userDO);
 }

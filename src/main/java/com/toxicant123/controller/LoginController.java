@@ -4,7 +4,7 @@ import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
 import com.toxicant123.exception.unchecked.AccessException;
 import com.toxicant123.service.AccessCheckService;
 import com.toxicant123.service.LoginService;
-import com.toxicant123.vo.LoginVO;
+import com.toxicant123.dto.LoginDTO;
 import com.toxicant123.param.LoginParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class LoginController {
     private AccessCheckService accessCheckService;
 
     @PostMapping("/usernameAndPassword")
-    public LoginVO usernameAndPassword(@RequestBody @Validated LoginParam param) {
+    public LoginDTO usernameAndPassword(@RequestBody @Validated LoginParam param) {
 
         if (accessCheckService.checkAccessIsIllegal()) {
             throw new AccessException(ErrorCodeAndUserMessageEnum.B0501, "someone access LoginController.usernameAndPassword many times");
@@ -37,7 +37,7 @@ public class LoginController {
 
         var userLoginBO = loginService.getUserLoginBOByUsernameAndPassword(param);
 
-        return new LoginVO()
+        return new LoginDTO()
                 .setToken(userLoginBO.encode());
     }
 }

@@ -2,7 +2,7 @@ package com.toxicant123.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.toxicant123.param.UserParam;
-import com.toxicant123.vo.UserVO;
+import com.toxicant123.dto.UserDTO;
 
 /**
  * @author toxicant123
@@ -12,7 +12,7 @@ import com.toxicant123.vo.UserVO;
  */
 public interface UserService {
 
-    UserVO getUserById(Long id);
+    UserDTO getUserById(Long id);
 
-    IPage<UserVO> queryUserList(UserParam param);
+    IPage<UserDTO> queryUserList(UserParam param);
 }

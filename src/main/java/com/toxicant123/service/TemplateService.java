@@ -7,4 +7,5 @@ package com.toxicant123.service;
  * @create 2025-04-10 08:23
  */
 public interface TemplateService {
+
 }

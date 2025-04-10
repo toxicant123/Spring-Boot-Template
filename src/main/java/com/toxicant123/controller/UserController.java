@@ -35,7 +35,7 @@ public class UserController {
 
     @GetMapping("/getUserInfo")
     @RequireRole(UserRoleConstant.USER_ROLE_ADMIN)
-    public UserDTO getUserInfo(@RequestParam("id") @NotNull(message = "id cannot be null") Long id) {
+    public UserDTO getUserInfo(@RequestParam("id") @NotNull(message = "id can't be null") Long id) {
         return userService.getUserById(id);
     }
 

@@ -13,10 +13,10 @@ import lombok.Data;
 @Data
 public class PageParam {
 
-    @Min(value = 1, message = "curPage can not be less than 1")
+    @Min(value = 1, message = "curPage can't be less than 1")
     private int curPage;
 
-    @Min(value = 1, message = "pageSize can not be less than 1")
-    @Max(value = 100, message = "pageSize can not be larger than 100")
+    @Min(value = 1, message = "pageSize can't be less than 1")
+    @Max(value = 100, message = "pageSize can't be larger than 100")
     private int pageSize;
 }

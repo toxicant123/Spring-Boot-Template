@@ -2,6 +2,7 @@ package com.toxicant123.service.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
+import com.toxicant123.dto.TemplateDTO;
 import com.toxicant123.exception.checked.TemplateException;
 import com.toxicant123.repository.TemplateRepository;
 import com.toxicant123.service.TemplateService;
@@ -27,6 +28,21 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Autowired
     private TemplateRepository templateRepository;
+
+    @Override
+    public TemplateDTO addTemplate(TemplateDTO templateDTO) {
+        return null;
+    }
+
+    @Override
+    public Boolean deleteTemplate(Long templateId) {
+        return null;
+    }
+
+    @Override
+    public TemplateDTO updateTemplate(TemplateDTO templateDTO) {
+        return null;
+    }
 
     @Override
     public Optional<String> renderTemplate(Long templateId, Consumer<Template> templateConsumer) throws TemplateException {

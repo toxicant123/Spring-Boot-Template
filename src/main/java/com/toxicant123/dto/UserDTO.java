@@ -2,6 +2,7 @@ package com.toxicant123.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * @author toxicant123
@@ -13,6 +14,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class UserDTO extends PageDTO {
 
+    @Length(max = 128)
     private String name;
 
     private Short age;

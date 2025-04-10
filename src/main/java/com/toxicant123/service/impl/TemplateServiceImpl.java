@@ -8,6 +8,7 @@ import com.toxicant123.repository.TemplateRepository;
 import com.toxicant123.service.TemplateService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,9 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Autowired
     private TemplateRepository templateRepository;
+
+    @Autowired
+    private GroupTemplate groupTemplate;
 
     @Override
     public TemplateDTO addTemplate(TemplateDTO templateDTO) {
@@ -51,11 +55,18 @@ public class TemplateServiceImpl implements TemplateService {
             throw new TemplateException("can't find template, id is: " + templateId);
         }
 
+        var paramsMap = (Map<String, String>) null;
         if (ObjectUtils.isNotEmpty(templateDO.getParams())) {
-            var paramsMap = JSON.parseObject(templateDO.getParams(), new TypeReference<Map<String, String>>() {
+            paramsMap = JSON.parseObject(templateDO.getParams(), new TypeReference<>() {
             });
         }
 
-        return Optional.empty();
+        var template = groupTemplate.getTemplate(templateDO.getTemplate());
+        if (ObjectUtils.isNotEmpty(paramsMap)) {
+            template.binding("paramsMap", paramsMap);
+        }
+        templateConsumer.accept(template);
+
+        return Optional.ofNullable(template.render());
     }
 }

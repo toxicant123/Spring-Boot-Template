@@ -1,17 +1,21 @@
 package com.toxicant123.dto;
 
+import com.toxicant123.annotation.Password;
+import com.toxicant123.annotation.Username;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * @author toxicant123
  * @version 1.0
  * @Description
- * @create 2024-07-21 下午5:35
+ * @create 2024-06-27 下午11:18
  */
 @Data
-@Accessors(chain = true)
 public class LoginDTO {
 
-    private String token;
+    @Username
+    private String username;
+
+    @Password
+    private String password;
 }

@@ -1,7 +1,6 @@
 package com.toxicant123.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.toxicant123.param.UserParam;
 import com.toxicant123.dto.UserDTO;
 
 /**
@@ -14,5 +13,5 @@ public interface UserService {
 
     UserDTO getUserById(Long id);
 
-    IPage<UserDTO> queryUserList(UserParam param);
+    IPage<UserDTO> queryUserList(UserDTO userDTO);
 }

@@ -3,10 +3,9 @@ package com.toxicant123.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.toxicant123.annotation.RequireRole;
 import com.toxicant123.constant.UserRoleConstant;
-import com.toxicant123.param.UserParam;
+import com.toxicant123.dto.UserDTO;
 import com.toxicant123.service.UserService;
 import com.toxicant123.util.UserLoginUtils;
-import com.toxicant123.dto.UserDTO;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ public class UserController {
 
     @PostMapping("/queryUserList")
     @RequireRole(UserRoleConstant.USER_ROLE_ADMIN)
-    public IPage<UserDTO> queryUserList(@RequestBody @Validated UserParam param) {
-        return userService.queryUserList(param);
+    public IPage<UserDTO> queryUserList(@RequestBody @Validated UserDTO userDTO) {
+        return userService.queryUserList(userDTO);
     }
 }

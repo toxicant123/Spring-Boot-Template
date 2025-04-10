@@ -1,8 +1,8 @@
 package com.toxicant123.repository;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.toxicant123.dto.UserDTO;
 import com.toxicant123.entity.UserDO;
-import com.toxicant123.param.UserParam;
 
 /**
  * @author toxicant123
@@ -14,5 +14,5 @@ public interface UserRepository {
 
     UserDO getUserById(Long id);
 
-    Page<UserDO> queryUserList(UserParam param);
+    Page<UserDO> queryUserList(UserDTO userDTO);
 }

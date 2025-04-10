@@ -2,7 +2,7 @@ package com.toxicant123.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.toxicant123.param.UserParam;
+import com.toxicant123.dto.UserDTO;
 import com.toxicant123.entity.UserDO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,5 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserDao extends BaseMapper<UserDO> {
 
-    Page<UserDO> queryUserList(Page<UserDO> userPage, UserParam param);
+    Page<UserDO> queryUserList(Page<UserDO> userPage, UserDTO userDTO);
 }

@@ -1,4 +1,4 @@
-package com.toxicant123.param;
+package com.toxicant123.dto;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -11,7 +11,7 @@ import lombok.Data;
  * @create 2024-07-15 下午11:26
  */
 @Data
-public class PageParam {
+public class PageDTO {
 
     @Min(value = 1, message = "curPage can't be less than 1")
     private int curPage;

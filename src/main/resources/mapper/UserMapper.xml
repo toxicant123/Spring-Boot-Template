@@ -5,7 +5,12 @@
 <mapper namespace="com.toxicant123.dao.UserDao">
 
     <select id="queryUserList" resultType="com.toxicant123.entity.UserDO">
-        select * from user where gender > #{param.minGender}
+        select *
+        from user
+        where 1 = 1
+        <if test="userDTO.name != null and userDTO.name != ''">
+            and name = #{userDTO.name}
+        </if>
     </select>
 
 </mapper>

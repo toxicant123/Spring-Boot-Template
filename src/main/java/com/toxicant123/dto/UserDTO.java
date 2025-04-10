@@ -1,6 +1,7 @@
 package com.toxicant123.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author toxicant123
@@ -9,7 +10,8 @@ import lombok.Data;
  * @create 2024-07-22 下午7:42
  */
 @Data
-public class UserDTO {
+@EqualsAndHashCode(callSuper = true)
+public class UserDTO extends PageDTO {
 
     private String name;
 

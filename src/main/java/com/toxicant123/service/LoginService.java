@@ -1,7 +1,7 @@
 package com.toxicant123.service;
 
 import com.toxicant123.bo.UserLoginBO;
-import com.toxicant123.param.LoginParam;
+import com.toxicant123.dto.LoginDTO;
 
 /**
  * @author toxicant123
@@ -11,5 +11,5 @@ import com.toxicant123.param.LoginParam;
  */
 public interface LoginService {
 
-    UserLoginBO getUserLoginBOByUsernameAndPassword(LoginParam param);
+    UserLoginBO getUserLoginBOByUsernameAndPassword(LoginDTO loginDTO);
 }

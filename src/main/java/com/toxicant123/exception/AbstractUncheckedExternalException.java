@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class AbstractUncheckedExternalException extends RuntimeException implements BusinessExceptionInterface {
+public abstract class AbstractUncheckedExternalException extends RuntimeException implements ExternalExceptionInterface {
 
     protected String errorCode;
 

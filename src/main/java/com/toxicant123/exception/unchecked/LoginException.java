@@ -1,7 +1,7 @@
 package com.toxicant123.exception.unchecked;
 
 import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
-import com.toxicant123.exception.AbstractUncheckedBusinessException;
+import com.toxicant123.exception.AbstractUncheckedExternalException;
 
 /**
  * @author toxicant123
@@ -9,7 +9,7 @@ import com.toxicant123.exception.AbstractUncheckedBusinessException;
  * @Description
  * @create 2024-08-08 下午8:35
  */
-public class LoginException extends AbstractUncheckedBusinessException {
+public class LoginException extends AbstractUncheckedExternalException {
 
     public LoginException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage) {
         super(errorCodeAndUserMessageEnum, errorMessage);

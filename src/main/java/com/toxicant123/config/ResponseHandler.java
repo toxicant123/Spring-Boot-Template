@@ -1,7 +1,7 @@
 package com.toxicant123.config;
 
 import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
-import com.toxicant123.exception.BusinessExceptionInterface;
+import com.toxicant123.exception.ExternalExceptionInterface;
 import com.toxicant123.util.ResponseData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -58,7 +58,7 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
         var uuid = UUID.randomUUID().toString();
         EXCEPTION_STATUS_CODE.set(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        if (ex instanceof BusinessExceptionInterface be) {
+        if (ex instanceof ExternalExceptionInterface be) {
             EXCEPTION_STATUS_CODE.set(be.getHttpStatus());
             log.error("uuid: {}, error detail: {}", uuid, be.getErrorMessage(), ex);
 

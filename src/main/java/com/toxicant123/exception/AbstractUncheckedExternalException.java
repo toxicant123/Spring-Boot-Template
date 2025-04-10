@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class AbstractUncheckedBusinessException extends RuntimeException implements BusinessExceptionInterface {
+public abstract class AbstractUncheckedExternalException extends RuntimeException implements BusinessExceptionInterface {
 
     protected String errorCode;
 
@@ -23,18 +23,7 @@ public abstract class AbstractUncheckedBusinessException extends RuntimeExceptio
 
     protected HttpStatus httpStatus;
 
-    public AbstractUncheckedBusinessException() {
-    }
-
-    public AbstractUncheckedBusinessException(String errorCode, String errorMessage, String userMessage, HttpStatus httpStatus) {
-        super(errorMessage);
-        this.errorCode = errorCode;
-        this.errorMessage = errorMessage;
-        this.userMessage = userMessage;
-        this.httpStatus = httpStatus;
-    }
-
-    public AbstractUncheckedBusinessException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage) {
+    public AbstractUncheckedExternalException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage) {
         super(errorMessage);
         this.errorCode = errorCodeAndUserMessageEnum.name();
         this.errorMessage = errorMessage;
@@ -42,12 +31,11 @@ public abstract class AbstractUncheckedBusinessException extends RuntimeExceptio
         this.httpStatus = errorCodeAndUserMessageEnum.getHttpStatusCode();
     }
 
-    public AbstractUncheckedBusinessException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage, Throwable cause) {
+    public AbstractUncheckedExternalException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage, Throwable cause) {
         super(errorMessage, cause);
         this.errorCode = errorCodeAndUserMessageEnum.name();
         this.errorMessage = errorMessage;
         this.userMessage = errorCodeAndUserMessageEnum.getUserMessage();
         this.httpStatus = errorCodeAndUserMessageEnum.getHttpStatusCode();
     }
-
 }

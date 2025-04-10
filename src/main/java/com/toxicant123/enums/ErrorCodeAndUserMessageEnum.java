@@ -12,10 +12,10 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum ErrorCodeAndUserMessageEnum {
 
-    //  用户端错误 - 用户登录异常 - 用户密码错误
+    // 用户端错误 - 用户登录异常 - 用户密码错误
     A0210("用户名或密码错误"),
 
-    //  用户端错误 - 用户登录异常 - 用户登录已过期
+    // 用户端错误 - 用户登录异常 - 用户登录已过期
     A0230("登录状态过期，请重新登录", HttpStatus.UNAUTHORIZED),
 
     // 用户端错误 - 用户登录异常 - 用户凭据异常
@@ -33,7 +33,7 @@ public enum ErrorCodeAndUserMessageEnum {
     // 用户端错误 - 用户请求服务异常 - 请求次数超出限制
     A0501("访问频率过高，请稍后再试"),
 
-    //  系统执行出错
+    // 系统执行出错
     B0001("系统出错，请稍后再试"),
 
     // 系统执行出错 - 系统环境问题 - 必要信息丢失 - 加解密算法缺失

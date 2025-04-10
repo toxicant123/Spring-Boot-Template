@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public abstract class AbstractCheckedBusinessException extends Exception implements BusinessExceptionInterface {
+public abstract class AbstractCheckedExternalException extends Exception implements BusinessExceptionInterface {
 
     protected String errorCode;
 

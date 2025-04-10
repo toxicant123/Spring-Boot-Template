@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
  * @Description
  * @create 2024-08-06 下午9:12
  */
-public interface BusinessExceptionInterface {
+public interface ExternalExceptionInterface {
 
     String getErrorCode();
 

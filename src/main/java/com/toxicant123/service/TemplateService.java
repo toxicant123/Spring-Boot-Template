@@ -1,5 +1,11 @@
 package com.toxicant123.service;
 
+import com.toxicant123.exception.checked.TemplateException;
+import org.beetl.core.Template;
+
+import java.util.Optional;
+import java.util.function.Consumer;
+
 /**
  * @author toxicant123
  * @version 1.0
@@ -8,4 +14,5 @@ package com.toxicant123.service;
  */
 public interface TemplateService {
 
+    Optional<String> renderTemplate(Long templateId, Consumer<Template> templateConsumer) throws TemplateException;
 }

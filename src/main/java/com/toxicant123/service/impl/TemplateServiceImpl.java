@@ -6,6 +6,8 @@ import com.toxicant123.dto.TemplateDTO;
 import com.toxicant123.exception.checked.TemplateRenderException;
 import com.toxicant123.repository.TemplateRepository;
 import com.toxicant123.service.TemplateService;
+import com.toxicant123.util.AuditUtils;
+import com.toxicant123.util.UserLoginUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.beetl.core.GroupTemplate;
@@ -40,11 +42,23 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public Boolean deleteTemplate(Long templateId) {
-        return null;
+        var templateDO = templateRepository.getTemplateById(templateId);
+        if (ObjectUtils.isEmpty(templateDO)) {
+            throw new RuntimeException("该模板不存在或已被删除！模板ID：" + templateId);
+        }
+
+        AuditUtils.delete(templateDO, UserLoginUtils.getCurrentUserId());
+        templateRepository.updateTemplateById(templateDO);
+        return true;
     }
 
     @Override
     public TemplateDTO updateTemplate(TemplateDTO templateDTO) {
+        var templateId = templateDTO.getId();
+        var templateDO = templateRepository.getTemplateById(templateDTO.getId());
+        if (ObjectUtils.isEmpty(templateDO)) {
+            throw new RuntimeException("该模板不存在或已被删除！模板ID：" + templateId);
+        }
         return null;
     }
 

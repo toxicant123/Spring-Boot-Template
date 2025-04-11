@@ -10,7 +10,7 @@ import com.toxicant123.entity.TemplateDO;
  */
 public interface TemplateRepository {
 
-    TemplateDO addTemplate(TemplateDO templateDO);
+    TemplateDO insertTemplate(TemplateDO templateDO);
 
     TemplateDO updateTemplateById(TemplateDO templateDO);
 

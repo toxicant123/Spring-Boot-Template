@@ -21,7 +21,7 @@ public class TemplateRepositoryImpl implements TemplateRepository {
     private TemplateDAO templateDao;
 
     @Override
-    public TemplateDO addTemplate(TemplateDO templateDO) {
+    public TemplateDO insertTemplate(TemplateDO templateDO) {
         templateDao.insert(templateDO);
         return templateDO;
     }

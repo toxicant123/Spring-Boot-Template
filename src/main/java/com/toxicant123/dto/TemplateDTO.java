@@ -17,7 +17,7 @@ public class TemplateDTO {
 
     @Null(groups = AddTemplateValidation.class)
     @NotNull(groups = UpdateTemplateValidation.class)
-    private String id;
+    private Long id;
 
     @NotNull
     private String template;

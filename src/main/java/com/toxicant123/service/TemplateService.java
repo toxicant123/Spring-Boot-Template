@@ -1,7 +1,7 @@
 package com.toxicant123.service;
 
 import com.toxicant123.dto.TemplateDTO;
-import com.toxicant123.exception.checked.TemplateException;
+import com.toxicant123.exception.checked.TemplateRenderException;
 import org.beetl.core.Template;
 
 import java.util.Optional;
@@ -21,5 +21,5 @@ public interface TemplateService {
 
     TemplateDTO updateTemplate(TemplateDTO templateDTO);
 
-    Optional<String> renderTemplate(Long templateId, Consumer<Template> templateConsumer) throws TemplateException;
+    Optional<String> renderTemplate(Long templateId, Consumer<Template> templateConsumer) throws TemplateRenderException;
 }

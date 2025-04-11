@@ -3,7 +3,7 @@ package com.toxicant123.service.impl;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 import com.toxicant123.dto.TemplateDTO;
-import com.toxicant123.exception.checked.TemplateException;
+import com.toxicant123.exception.checked.TemplateRenderException;
 import com.toxicant123.repository.TemplateRepository;
 import com.toxicant123.service.TemplateService;
 import lombok.extern.slf4j.Slf4j;
@@ -49,10 +49,10 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
-    public Optional<String> renderTemplate(Long templateId, Consumer<Template> templateConsumer) throws TemplateException {
+    public Optional<String> renderTemplate(Long templateId, Consumer<Template> templateConsumer) throws TemplateRenderException {
         var templateDO = templateRepository.getTemplateById(templateId);
         if (ObjectUtils.isEmpty(templateDO)) {
-            throw new TemplateException("can't find template, id is: " + templateId);
+            throw new TemplateRenderException("can't find template, id is: " + templateId);
         }
 
         var paramsMap = (Map<String, String>) null;

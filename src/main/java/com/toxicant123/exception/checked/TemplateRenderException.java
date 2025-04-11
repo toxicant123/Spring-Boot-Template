@@ -8,8 +8,8 @@ import com.toxicant123.exception.AbstractCheckedInternalException;
  * @Description
  * @create 2025-04-10 21:01
  */
-public class TemplateException extends AbstractCheckedInternalException {
-    public TemplateException(String errorMessage) {
+public class TemplateRenderException extends AbstractCheckedInternalException {
+    public TemplateRenderException(String errorMessage) {
         super(errorMessage);
     }
 }

@@ -4,6 +4,8 @@ import com.toxicant123.annotation.RequireRole;
 import com.toxicant123.constant.UserRoleConstant;
 import com.toxicant123.dto.TemplateDTO;
 import com.toxicant123.service.TemplateService;
+import com.toxicant123.validation.AddTemplateValidation;
+import com.toxicant123.validation.UpdateTemplateValidation;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class TemplateController {
     private TemplateService templateService;
 
     @PostMapping("/addTemplate")
-    public TemplateDTO addTemplate(@RequestBody @Validated TemplateDTO templateDTO) {
+    public TemplateDTO addTemplate(@RequestBody @Validated(AddTemplateValidation.class) TemplateDTO templateDTO) {
         return templateService.addTemplate(templateDTO);
     }
 
@@ -36,7 +38,7 @@ public class TemplateController {
     }
 
     @PostMapping("/updateTemplate")
-    public TemplateDTO updateTemplate(@RequestBody TemplateDTO templateDTO) {
+    public TemplateDTO updateTemplate(@RequestBody @Validated(UpdateTemplateValidation.class) TemplateDTO templateDTO) {
         return templateService.updateTemplate(templateDTO);
     }
 }

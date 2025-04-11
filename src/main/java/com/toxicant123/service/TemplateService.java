@@ -19,7 +19,7 @@ public interface TemplateService {
 
     Boolean deleteTemplate(Long templateId);
 
-    TemplateDTO updateTemplate(TemplateDTO templateDTO);
+    Boolean updateTemplate(TemplateDTO templateDTO);
 
     Optional<String> renderTemplate(Long templateId, Consumer<Template> templateConsumer) throws TemplateRenderException;
 }

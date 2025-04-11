@@ -21,4 +21,7 @@ public class TemplateDTO {
 
     @NotNull
     private String template;
+
+    @NotNull
+    private String params;
 }

@@ -38,7 +38,7 @@ public class TemplateController {
     }
 
     @PostMapping("/updateTemplate")
-    public TemplateDTO updateTemplate(@RequestBody @Validated(UpdateTemplateValidation.class) TemplateDTO templateDTO) {
+    public Boolean updateTemplate(@RequestBody @Validated(UpdateTemplateValidation.class) TemplateDTO templateDTO) {
         return templateService.updateTemplate(templateDTO);
     }
 }

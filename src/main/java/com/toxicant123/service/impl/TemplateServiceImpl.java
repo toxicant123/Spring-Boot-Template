@@ -6,6 +6,7 @@ import com.toxicant123.dto.TemplateDTO;
 import com.toxicant123.exception.checked.TemplateRenderException;
 import com.toxicant123.repository.TemplateRepository;
 import com.toxicant123.service.TemplateService;
+import com.toxicant123.service.convert.TemplateConvertService;
 import com.toxicant123.util.AuditUtils;
 import com.toxicant123.util.UserLoginUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -35,9 +36,15 @@ public class TemplateServiceImpl implements TemplateService {
     @Autowired
     private GroupTemplate groupTemplate;
 
+    @Autowired
+    private TemplateConvertService templateConvertService;
+
     @Override
     public TemplateDTO addTemplate(TemplateDTO templateDTO) {
-        return null;
+        var templateDO = templateConvertService.convertTemplateDTOToTemplateDO(templateDTO);
+        templateRepository.insertTemplate(templateDO);
+        templateDTO.setId(templateDO.getId());
+        return templateDTO;
     }
 
     @Override
@@ -53,13 +60,17 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
-    public TemplateDTO updateTemplate(TemplateDTO templateDTO) {
+    public Boolean updateTemplate(TemplateDTO templateDTO) {
+        var templateDO = templateConvertService.convertTemplateDTOToTemplateDO(templateDTO);
         var templateId = templateDTO.getId();
-        var templateDO = templateRepository.getTemplateById(templateDTO.getId());
-        if (ObjectUtils.isEmpty(templateDO)) {
+
+        var templateOldDO = templateRepository.getTemplateById(templateDTO.getId());
+        if (ObjectUtils.isEmpty(templateOldDO)) {
             throw new RuntimeException("该模板不存在或已被删除！模板ID：" + templateId);
         }
-        return null;
+
+        templateRepository.updateTemplateById(templateDO);
+        return true;
     }
 
     @Override

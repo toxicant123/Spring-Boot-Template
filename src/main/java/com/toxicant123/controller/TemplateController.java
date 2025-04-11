@@ -3,6 +3,7 @@ package com.toxicant123.controller;
 import com.toxicant123.annotation.RequireRole;
 import com.toxicant123.constant.UserRoleConstant;
 import com.toxicant123.dto.TemplateDTO;
+import com.toxicant123.exception.checked.TemplateRenderException;
 import com.toxicant123.service.TemplateService;
 import com.toxicant123.validation.AddTemplateValidation;
 import com.toxicant123.validation.UpdateTemplateValidation;
@@ -40,5 +41,10 @@ public class TemplateController {
     @PostMapping("/updateTemplate")
     public Boolean updateTemplate(@RequestBody @Validated(UpdateTemplateValidation.class) TemplateDTO templateDTO) {
         return templateService.updateTemplate(templateDTO);
+    }
+
+    @GetMapping("/renderTemplate")
+    public String renderTemplate(@RequestParam @NotNull Long templateId) throws TemplateRenderException {
+        return templateService.renderTemplate(templateId, t -> {}).orElse("");
     }
 }

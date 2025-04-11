@@ -31,7 +31,7 @@ public enum ErrorCodeAndUserMessageEnum {
     A0400("请检查您的输入是否正确", HttpStatus.BAD_REQUEST),
 
     // 用户端错误 - 用户请求参数错误 - 无效的用户输入
-    A0402("无效的输入，请重新检查您的输入", HttpStatus.BAD_REQUEST),
+    A0402("无效的输入，请重新检查您的输入", HttpStatus.UNPROCESSABLE_ENTITY),
 
     // 用户端错误 - 用户请求服务异常 - 请求次数超出限制
     A0501("访问频率过高，请稍后再试"),

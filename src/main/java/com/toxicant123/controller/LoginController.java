@@ -1,5 +1,7 @@
 package com.toxicant123.controller;
 
+import com.toxicant123.annotation.RequireRole;
+import com.toxicant123.constant.UserRoleConstant;
 import com.toxicant123.dto.TokenDTO;
 import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
 import com.toxicant123.exception.unchecked.AccessException;
@@ -39,5 +41,11 @@ public class LoginController {
 
         return new TokenDTO()
                 .setToken(userLoginBO.encode());
+    }
+
+    @GetMapping
+    @RequireRole(UserRoleConstant.USER_ROLE_USER)
+    public String verify() {
+        return "success";
     }
 }

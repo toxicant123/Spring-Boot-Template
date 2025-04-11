@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCodeAndUserMessageEnum {
 
     // 用户端错误 - 用户登录异常 - 用户密码错误
-    A0210("用户名或密码错误"),
+    A0210("用户名或密码错误", HttpStatus.UNAUTHORIZED),
 
     // 用户端错误 - 用户登录异常 - 用户登录已过期
     A0230("登录状态过期，请重新登录", HttpStatus.UNAUTHORIZED),
@@ -28,7 +28,10 @@ public enum ErrorCodeAndUserMessageEnum {
     A0301("暂无权限访问", HttpStatus.FORBIDDEN),
 
     // 用户端错误 - 用户请求参数错误
-    A0400("请检查您的输入是否正确"),
+    A0400("请检查您的输入是否正确", HttpStatus.BAD_REQUEST),
+
+    // 用户端错误 - 用户请求参数错误 - 无效的用户输入
+    A0402("无效的输入，请重新检查您的输入", HttpStatus.BAD_REQUEST),
 
     // 用户端错误 - 用户请求服务异常 - 请求次数超出限制
     A0501("访问频率过高，请稍后再试"),

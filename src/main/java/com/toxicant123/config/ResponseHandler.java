@@ -55,31 +55,41 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
 
     @ExceptionHandler(Exception.class)
     public ResponseData<?> handleAllExceptions(Exception ex) {
+        var data = (Object) null;
+        var errorCode = "";
+        var errorMessage = "";
+        var userMessage = "";
         var uuid = UUID.randomUUID().toString();
-        EXCEPTION_STATUS_CODE.set(HttpStatus.INTERNAL_SERVER_ERROR);
+        var httpStatus = (HttpStatus) null;
 
         if (ex instanceof ExternalExceptionInterface be) {
-            EXCEPTION_STATUS_CODE.set(be.getHttpStatus());
             log.error("uuid: {}, error detail: {}", uuid, be.getErrorMessage(), ex);
 
-            return ResponseData.fail(null, be.getErrorCode(), be.getErrorMessage(), be.getUserMessage(), uuid);
+            errorCode = be.getErrorCode();
+            errorMessage = be.getErrorMessage();
+            userMessage = be.getUserMessage();
+            httpStatus = be.getHttpStatus();
         } else if (ex instanceof MethodArgumentNotValidException mae) {
             log.error("uuid: {}, method argument not valid", uuid, ex);
 
-            var message = "method argument not valid";
+            errorCode = ErrorCodeAndUserMessageEnum.A0400.name();
+            errorMessage = "method argument not valid";
             var fieldError = mae.getFieldError();
             if (ObjectUtils.isNotEmpty(fieldError)) {
-                message = fieldError.getField() + ": " + fieldError.getDefaultMessage();
+                errorMessage = fieldError.getField() + ": " + fieldError.getDefaultMessage();
             }
-            return ResponseData.fail(null, ErrorCodeAndUserMessageEnum.A0400.name(), message, ErrorCodeAndUserMessageEnum.A0400.getUserMessage(), uuid);
+            userMessage = ErrorCodeAndUserMessageEnum.A0400.getUserMessage();
+            httpStatus = HttpStatus.BAD_REQUEST;
         } else {
             log.error("uuid: {}, error happened", uuid, ex);
 
-            return ResponseData.fail(null,
-                    ErrorCodeAndUserMessageEnum.B0001.name(),
-                    HttpStatus.INTERNAL_SERVER_ERROR.name(),
-                    ErrorCodeAndUserMessageEnum.B0001.getUserMessage(),
-                    uuid);
+            errorCode = ErrorCodeAndUserMessageEnum.B0001.name();
+            errorMessage = HttpStatus.INTERNAL_SERVER_ERROR.name();
+            userMessage = ErrorCodeAndUserMessageEnum.B0001.getUserMessage();
+            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         }
+
+        EXCEPTION_STATUS_CODE.set(httpStatus);
+        return ResponseData.fail(data, errorCode, errorMessage, userMessage, uuid);
     }
 }

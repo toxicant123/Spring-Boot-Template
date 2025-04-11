@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping("/getCurrentUserInfo")
     public UserDTO getCurrentUserInfo() {
-        return getUserInfo(UserLoginUtils.getUserLoginBO().getUserId());
+        return getUserInfo(UserLoginUtils.getCurrentUserId());
     }
 
     @GetMapping("/getUserInfo")

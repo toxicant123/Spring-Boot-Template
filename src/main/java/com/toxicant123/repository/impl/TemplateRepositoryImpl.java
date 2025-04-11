@@ -3,11 +3,8 @@ package com.toxicant123.repository.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.toxicant123.constant.ExistFlagConstant;
 import com.toxicant123.dao.TemplateDAO;
-import com.toxicant123.dto.TemplateDTO;
 import com.toxicant123.entity.TemplateDO;
 import com.toxicant123.repository.TemplateRepository;
-import lombok.var;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,21 +27,9 @@ public class TemplateRepositoryImpl implements TemplateRepository {
     }
 
     @Override
-    public Boolean deleteTemplate(Long templateId) {
-        var templateDO = getTemplateById(templateId);
-        if (ObjectUtils.isEmpty(templateDO)) {
-            throw new RuntimeException();
-        }
-        return null;
-    }
-
-    @Override
-    public TemplateDTO updateTemplate(TemplateDO templateDO) {
-        var oldTemplateDO = getTemplateById(templateDO.getId());
-        if (ObjectUtils.isEmpty(oldTemplateDO)) {
-            throw new RuntimeException();
-        }
-        return null;
+    public TemplateDO updateTemplateById(TemplateDO templateDO) {
+        templateDao.updateById(templateDO);
+        return templateDO;
     }
 
     @Override

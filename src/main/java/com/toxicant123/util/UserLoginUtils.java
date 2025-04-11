@@ -23,4 +23,8 @@ public class UserLoginUtils {
     public static void clearUserLoginBO() {
         USER_LOGIN_BO_THREAD_LOCAL.remove();
     }
+
+    public static Long getCurrentUserId() {
+        return getUserLoginBO().getUserId();
+    }
 }

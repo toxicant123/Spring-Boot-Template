@@ -1,6 +1,5 @@
 package com.toxicant123.repository;
 
-import com.toxicant123.dto.TemplateDTO;
 import com.toxicant123.entity.TemplateDO;
 
 /**
@@ -13,9 +12,7 @@ public interface TemplateRepository {
 
     TemplateDO addTemplate(TemplateDO templateDO);
 
-    Boolean deleteTemplate(Long templateId);
-
-    TemplateDTO updateTemplate(TemplateDO templateDO);
+    TemplateDO updateTemplateById(TemplateDO templateDO);
 
     TemplateDO getTemplateById(Long templateId);
 }

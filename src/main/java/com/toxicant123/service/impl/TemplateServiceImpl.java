@@ -44,6 +44,7 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public Long addTemplate(TemplateDTO templateDTO) {
         var templateDO = templateConvertService.convertTemplateDTOToTemplateDO(templateDTO);
+        AuditUtils.init(templateDO, UserLoginUtils.getCurrentUserId());
         templateRepository.insertTemplate(templateDO);
         return templateDO.getId();
     }
@@ -70,12 +71,13 @@ public class TemplateServiceImpl implements TemplateService {
             throw new TemplateException(ErrorCodeAndUserMessageEnum.A0402, "template isn't exist, id is: " + templateId, "该模板不存在或已被删除！模板ID：" + templateId);
         }
 
+        AuditUtils.update(templateDO, UserLoginUtils.getCurrentUserId());
         templateRepository.updateTemplateById(templateDO);
         return true;
     }
 
     @Override
-    public Optional<String> renderTemplate(Long templateId, Consumer<Template> templateConsumer) throws TemplateRenderException {
+    public String renderTemplate(Long templateId, Consumer<Template> templateConsumer) throws TemplateRenderException {
         var templateDO = templateRepository.getTemplateById(templateId);
         if (ObjectUtils.isEmpty(templateDO)) {
             throw new TemplateRenderException("can't find template, id is: " + templateId);
@@ -93,6 +95,6 @@ public class TemplateServiceImpl implements TemplateService {
         }
         templateConsumer.accept(template);
 
-        return Optional.ofNullable(template.render());
+        return template.render();
     }
 }

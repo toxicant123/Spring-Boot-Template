@@ -45,6 +45,7 @@ public class TemplateController {
 
     @GetMapping("/renderTemplate")
     public String renderTemplate(@RequestParam @NotNull Long templateId) throws TemplateRenderException {
-        return templateService.renderTemplate(templateId, t -> {}).orElse("");
+        var result = templateService.renderTemplate(templateId, t -> {});
+        return result;
     }
 }

@@ -4,7 +4,6 @@ import com.toxicant123.dto.TemplateDTO;
 import com.toxicant123.exception.checked.TemplateRenderException;
 import org.beetl.core.Template;
 
-import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
@@ -21,5 +20,5 @@ public interface TemplateService {
 
     Boolean updateTemplate(TemplateDTO templateDTO);
 
-    Optional<String> renderTemplate(Long templateId, Consumer<Template> templateConsumer) throws TemplateRenderException;
+    String renderTemplate(Long templateId, Consumer<Template> templateConsumer) throws TemplateRenderException;
 }

@@ -40,11 +40,10 @@ public class TemplateServiceImpl implements TemplateService {
     private TemplateConvertService templateConvertService;
 
     @Override
-    public TemplateDTO addTemplate(TemplateDTO templateDTO) {
+    public Long addTemplate(TemplateDTO templateDTO) {
         var templateDO = templateConvertService.convertTemplateDTOToTemplateDO(templateDTO);
         templateRepository.insertTemplate(templateDO);
-        templateDTO.setId(templateDO.getId());
-        return templateDTO;
+        return templateDO.getId();
     }
 
     @Override

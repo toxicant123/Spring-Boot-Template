@@ -29,7 +29,7 @@ public class TemplateController {
     private TemplateService templateService;
 
     @PostMapping("/addTemplate")
-    public TemplateDTO addTemplate(@RequestBody @Validated(AddTemplateValidation.class) TemplateDTO templateDTO) {
+    public Long addTemplate(@RequestBody @Validated(AddTemplateValidation.class) TemplateDTO templateDTO) {
         return templateService.addTemplate(templateDTO);
     }
 

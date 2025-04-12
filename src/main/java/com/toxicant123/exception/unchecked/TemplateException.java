@@ -10,7 +10,7 @@ import com.toxicant123.exception.AbstractUncheckedExternalException;
  * @create 2025-04-11 21:46
  */
 public class TemplateException extends AbstractUncheckedExternalException {
-    public TemplateException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage) {
-        super(errorCodeAndUserMessageEnum, errorMessage);
+    public TemplateException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage, String userMessage) {
+        super(errorCodeAndUserMessageEnum, errorMessage, userMessage);
     }
 }

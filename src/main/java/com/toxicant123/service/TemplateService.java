@@ -15,7 +15,7 @@ import java.util.function.Consumer;
  */
 public interface TemplateService {
 
-    TemplateDTO addTemplate(TemplateDTO templateDTO);
+    Long addTemplate(TemplateDTO templateDTO);
 
     Boolean deleteTemplate(Long templateId);
 

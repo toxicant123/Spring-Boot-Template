@@ -23,6 +23,14 @@ public abstract class AbstractUncheckedExternalException extends RuntimeExceptio
 
     protected HttpStatus httpStatus;
 
+    public AbstractUncheckedExternalException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage, String userMessage) {
+        super(errorMessage);
+        this.errorCode = errorCodeAndUserMessageEnum.name();
+        this.errorMessage = errorMessage;
+        this.userMessage = userMessage;
+        this.httpStatus = errorCodeAndUserMessageEnum.getHttpStatusCode();
+    }
+
     public AbstractUncheckedExternalException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum, String errorMessage) {
         super(errorMessage);
         this.errorCode = errorCodeAndUserMessageEnum.name();

@@ -26,4 +26,13 @@ public class TemplateConvertServiceImpl implements TemplateConvertService {
 
         return templateDO;
     }
+
+    @Override
+    public TemplateDTO convertTemplateDOToTemplateDTO(TemplateDO templateDO) {
+        var templateDTO = new TemplateDTO();
+
+
+
+        return templateDTO;
+    }
 }

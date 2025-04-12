@@ -2,6 +2,7 @@ package com.toxicant123.service.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.toxicant123.dto.TemplateDTO;
 import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
 import com.toxicant123.exception.checked.TemplateRenderException;
@@ -19,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
@@ -96,5 +96,12 @@ public class TemplateServiceImpl implements TemplateService {
         templateConsumer.accept(template);
 
         return template.render();
+    }
+
+    @Override
+    public IPage<TemplateDTO> queryTemplateList(TemplateDTO templateDTO) {
+        return templateRepository
+                .selectTemplateList(templateDTO)
+                .convert(templateConvertService::convertTemplateDOToTemplateDTO);
     }
 }

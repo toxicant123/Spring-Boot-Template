@@ -12,4 +12,6 @@ import com.toxicant123.entity.TemplateDO;
 public interface TemplateConvertService {
 
     TemplateDO convertTemplateDTOToTemplateDO(TemplateDTO templateDTO);
+
+    TemplateDTO convertTemplateDOToTemplateDTO(TemplateDO templateDO);
 }

@@ -1,5 +1,6 @@
 package com.toxicant123.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.toxicant123.dto.TemplateDTO;
 import com.toxicant123.exception.checked.TemplateRenderException;
 import org.beetl.core.Template;
@@ -21,4 +22,6 @@ public interface TemplateService {
     Boolean updateTemplate(TemplateDTO templateDTO);
 
     String renderTemplate(Long templateId, Consumer<Template> templateConsumer) throws TemplateRenderException;
+
+    IPage<TemplateDTO> queryTemplateList(TemplateDTO templateDTO);
 }

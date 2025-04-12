@@ -1,9 +1,9 @@
 package com.toxicant123.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.toxicant123.annotation.RequireRole;
 import com.toxicant123.constant.UserRoleConstant;
 import com.toxicant123.dto.TemplateDTO;
-import com.toxicant123.exception.checked.TemplateRenderException;
 import com.toxicant123.service.TemplateService;
 import com.toxicant123.validation.AddTemplateValidation;
 import com.toxicant123.validation.UpdateTemplateValidation;
@@ -43,9 +43,8 @@ public class TemplateController {
         return templateService.updateTemplate(templateDTO);
     }
 
-    @GetMapping("/renderTemplate")
-    public String renderTemplate(@RequestParam @NotNull Long templateId) throws TemplateRenderException {
-        var result = templateService.renderTemplate(templateId, t -> {});
-        return result;
+    @PostMapping("/queryTemplateList")
+    public IPage<TemplateDTO> queryTemplateList(@RequestBody @Validated TemplateDTO templateDTO) {
+        return templateService.queryTemplateList(templateDTO);
     }
 }

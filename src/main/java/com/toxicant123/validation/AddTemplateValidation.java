@@ -6,5 +6,5 @@ package com.toxicant123.validation;
  * @Description
  * @create 2025-04-11 21:38
  */
-public class AddTemplateValidation {
+public interface AddTemplateValidation {
 }

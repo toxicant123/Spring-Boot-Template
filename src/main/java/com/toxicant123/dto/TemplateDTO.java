@@ -20,9 +20,8 @@ public class TemplateDTO {
     @NotNull(groups = UpdateTemplateValidation.class)
     private Long id;
 
-    @NotBlank
+    @NotBlank(groups = {AddTemplateValidation.class, UpdateTemplateValidation.class})
     private String template;
 
-    @NotNull
     private String params;
 }

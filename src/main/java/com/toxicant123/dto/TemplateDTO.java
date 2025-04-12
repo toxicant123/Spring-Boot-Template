@@ -29,8 +29,6 @@ public class TemplateDTO extends PageDTO {
 
     private String params;
 
-    private Byte existFlag;
-
     private Long createBy;
 
     private Date createTime;

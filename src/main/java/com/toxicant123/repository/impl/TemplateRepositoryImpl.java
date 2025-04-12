@@ -48,7 +48,7 @@ public class TemplateRepositoryImpl implements TemplateRepository {
         var page = new Page<TemplateDO>(templateDTO.getCurPage(), templateDTO.getPageSize());
         var queryWrapper = new LambdaQueryWrapper<TemplateDO>()
                 .eq(TemplateDO::getExistFlag, ExistFlagConstant.EXIST_FLAG);
-        templateDao.selectList(page, queryWrapper);
+        templateDao.selectPage(page, queryWrapper);
         return page;
     }
 }

@@ -31,7 +31,13 @@ public class TemplateConvertServiceImpl implements TemplateConvertService {
     public TemplateDTO convertTemplateDOToTemplateDTO(TemplateDO templateDO) {
         var templateDTO = new TemplateDTO();
 
-
+        templateDTO.setId(templateDO.getId());
+        templateDTO.setTemplate(templateDO.getTemplate());
+        templateDTO.setParams(templateDO.getParams());
+        templateDTO.setCreateBy(templateDO.getCreateBy());
+        templateDTO.setCreateTime(templateDO.getCreateTime());
+        templateDTO.setUpdateBy(templateDO.getUpdateBy());
+        templateDTO.setUpdateTime(templateDO.getUpdateTime());
 
         return templateDTO;
     }

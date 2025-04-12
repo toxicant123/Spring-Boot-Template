@@ -3,7 +3,9 @@ package com.toxicant123.service.impl;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 import com.toxicant123.dto.TemplateDTO;
+import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
 import com.toxicant123.exception.checked.TemplateRenderException;
+import com.toxicant123.exception.unchecked.TemplateException;
 import com.toxicant123.repository.TemplateRepository;
 import com.toxicant123.service.TemplateService;
 import com.toxicant123.service.convert.TemplateConvertService;
@@ -50,7 +52,7 @@ public class TemplateServiceImpl implements TemplateService {
     public Boolean deleteTemplate(Long templateId) {
         var templateDO = templateRepository.getTemplateById(templateId);
         if (ObjectUtils.isEmpty(templateDO)) {
-            throw new RuntimeException("该模板不存在或已被删除！模板ID：" + templateId);
+            throw new TemplateException(ErrorCodeAndUserMessageEnum.A0402, "template isn't exist, id is: " + templateId, "该模板不存在或已被删除！模板ID：" + templateId);
         }
 
         AuditUtils.delete(templateDO, UserLoginUtils.getCurrentUserId());
@@ -65,7 +67,7 @@ public class TemplateServiceImpl implements TemplateService {
 
         var templateOldDO = templateRepository.getTemplateById(templateDTO.getId());
         if (ObjectUtils.isEmpty(templateOldDO)) {
-            throw new RuntimeException("该模板不存在或已被删除！模板ID：" + templateId);
+            throw new TemplateException(ErrorCodeAndUserMessageEnum.A0402, "template isn't exist, id is: " + templateId, "该模板不存在或已被删除！模板ID：" + templateId);
         }
 
         templateRepository.updateTemplateById(templateDO);

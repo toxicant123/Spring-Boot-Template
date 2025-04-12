@@ -6,15 +6,15 @@ create table user_auth
 (
     id          bigint auto_increment
         primary key,
-    username    varchar(20)  null,
-    password    varchar(20)  null,
+    username    varchar(20)  not null,
+    password    varchar(20)  not null,
     phone       varchar(11)  null,
     email       varchar(128) null,
-    exist_flag  tinyint      null,
-    create_by   bigint       null,
-    create_time timestamp    null,
-    update_by   bigint       null,
-    update_time timestamp    null,
+    exist_flag  tinyint      not null,
+    create_by   bigint       not null,
+    create_time timestamp    not null,
+    update_by   bigint       not null,
+    update_time timestamp    not null,
     constraint idx_username_on_user_auth
         unique (username)
 );
@@ -28,13 +28,13 @@ create table user_role
 (
     id          bigint auto_increment
         primary key,
-    user_id     bigint      null,
+    user_id     bigint      not null,
     role        varchar(32) null,
-    exist_flag  tinyint     null,
-    create_by   bigint      null,
-    create_time timestamp   null,
-    update_by   bigint      null,
-    update_time timestamp   null
+    exist_flag  tinyint     not null,
+    create_by   bigint      not null,
+    create_time timestamp   not null,
+    update_by   bigint      not null,
+    update_time timestamp   not null
 );
 
 create index idx_user_id_on_user_role
@@ -44,3 +44,15 @@ INSERT INTO template.user_role (id, user_id, role, exist_flag, create_by, create
 VALUES (1, 1, 'admin', 1, 1, '2024-08-09 00:55:21', 1, '2024-08-09 00:55:21');
 INSERT INTO template.user_role (id, user_id, role, exist_flag, create_by, create_time, update_by, update_time)
 VALUES (2, 1, 'user', 1, 1, '2024-08-10 17:23:18', 1, '2024-08-10 17:23:22');
+
+create table template
+(
+    id          bigint auto_increment primary key,
+    template    varchar(8192) not null,
+    params      varchar(1024) null,
+    exist_flag  tinyint       not null,
+    create_by   bigint        not null,
+    create_time timestamp     not null,
+    update_by   bigint        not null,
+    update_time timestamp     not null
+)

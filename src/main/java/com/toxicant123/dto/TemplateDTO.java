@@ -2,6 +2,7 @@ package com.toxicant123.dto;
 
 import com.toxicant123.validation.AddTemplateValidation;
 import com.toxicant123.validation.UpdateTemplateValidation;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import lombok.Data;
@@ -19,7 +20,7 @@ public class TemplateDTO {
     @NotNull(groups = UpdateTemplateValidation.class)
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String template;
 
     @NotNull

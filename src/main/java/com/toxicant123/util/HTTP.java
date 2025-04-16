@@ -17,6 +17,7 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -43,67 +44,67 @@ public class HTTP {
                 .timeout(timeout);
     }
 
-    private static <T> Function<String, T> classDefineJson(Class<T> clazz) {
-        return str -> JSON.parseObject(str, clazz);
+    private static <T> Function<String, Optional<T>> classDefineJson(Class<T> clazz) {
+        return str -> Optional.ofNullable(JSON.parseObject(str, clazz));
     }
 
-    private static <T> Function<String, T> typeReferenceDefineJson(TypeReference<T> typeReference) {
-        return str -> JSON.parseObject(str, typeReference);
+    private static <T> Function<String, Optional<T>> typeReferenceDefineJson(TypeReference<T> typeReference) {
+        return str -> Optional.ofNullable(JSON.parseObject(str, typeReference));
     }
 
-    public static <T> T get(String url, Class<T> clazz) {
+    public static <T> Optional<T> get(String url, Class<T> clazz) {
         return get(url, null, clazz);
     }
 
-    public static <T> T get(String url, TypeReference<T> typeReference) {
+    public static <T> Optional<T> get(String url, TypeReference<T> typeReference) {
         return get(url, null, typeReference);
     }
 
-    public static <T> T get(String url, Map<String, String> params, Class<T> clazz) {
+    public static <T> Optional<T> get(String url, Map<String, String> params, Class<T> clazz) {
         return get(url, params, null, clazz);
     }
 
-    public static <T> T get(String url, Map<String, String> params, TypeReference<T> typeReference) {
+    public static <T> Optional<T> get(String url, Map<String, String> params, TypeReference<T> typeReference) {
         return get(url, params, null, typeReference);
     }
 
-    public static <T> T get(String url, Map<String, String> params, Map<String, String> headers, Class<T> clazz) {
+    public static <T> Optional<T> get(String url, Map<String, String> params, Map<String, String> headers, Class<T> clazz) {
         return request(getHttpRequestBuilder().GET(), url, params, headers, classDefineJson(clazz));
     }
 
-    public static <T> T get(String url, Map<String, String> params, Map<String, String> headers, TypeReference<T> typeReference) {
+    public static <T> Optional<T> get(String url, Map<String, String> params, Map<String, String> headers, TypeReference<T> typeReference) {
         return request(getHttpRequestBuilder().GET(), url, params, headers, typeReferenceDefineJson(typeReference));
     }
 
-    public static <T> T post(String url, Class<T> clazz) {
+    public static <T> Optional<T> post(String url, Class<T> clazz) {
         return post(url, null, clazz);
     }
 
-    public static <T> T post(String url, TypeReference<T> typeReference) {
+    public static <T> Optional<T> post(String url, TypeReference<T> typeReference) {
         return post(url, null, typeReference);
     }
 
-    public static <T, B> T post(String url, B body, Class<T> clazz) {
+    public static <T, B> Optional<T> post(String url, B body, Class<T> clazz) {
         return post(url, body, null, clazz);
     }
 
-    public static <T, B> T post(String url, B body, TypeReference<T> typeReference) {
+    public static <T, B> Optional<T> post(String url, B body, TypeReference<T> typeReference) {
         return post(url, body, null, typeReference);
     }
 
-    public static <T, B> T post(String url, B body, Map<String, String> params, Class<T> clazz) {
+    public static <T, B> Optional<T> post(String url, B body, Map<String, String> params, Class<T> clazz) {
         return post(url, body, params, null, clazz);
     }
 
-    public static <T, B> T post(String url, B body, Map<String, String> params, TypeReference<T> typeReference) {
+    public static <T, B> Optional<T> post(String url, B body, Map<String, String> params, TypeReference<T> typeReference) {
         return post(url, body, params, null, typeReference);
     }
 
-    public static <T, B> T post(String url, B body, Map<String, String> params, Map<String, String> headers, Class<T> clazz) {
+    public static <T, B> Optional<T> post(String url, B body, Map<String, String> params, Map<String, String> headers, Class<T> clazz) {
         return request(getHttpRequestBuilder().POST(getRequestBody(body)), url, params, headers, classDefineJson(clazz));
     }
 
-    public static <T, B> T post(String url, B body, Map<String, String> params, Map<String, String> headers, TypeReference<T> typeReference) {
+    public static <T, B> Optional<T> post(String url, B body, Map<String, String> params, Map<String, String> headers, TypeReference<T> typeReference) {
         return request(getHttpRequestBuilder().POST(getRequestBody(body)), url, params, headers, typeReferenceDefineJson(typeReference));
     }
 
@@ -113,7 +114,7 @@ public class HTTP {
                 : HttpRequest.BodyPublishers.noBody();
     }
 
-    private static <T> T request(HttpRequest.Builder builder, String url, Map<String, String> params, Map<String, String> headers, Function<String, T> function) {
+    private static <T> Optional<T> request(HttpRequest.Builder builder, String url, Map<String, String> params, Map<String, String> headers, Function<String, Optional<T>> function) {
         if (ObjectUtils.isNotEmpty(params)) {
             url += params
                     .entrySet()

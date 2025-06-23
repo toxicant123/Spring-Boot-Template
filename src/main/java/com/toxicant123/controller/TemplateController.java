@@ -47,4 +47,23 @@ public class TemplateController {
     public IPage<TemplateDTO> queryTemplateList(@RequestBody @Validated TemplateDTO templateDTO) {
         return templateService.queryTemplateList(templateDTO);
     }
+
+    // @PostMapping("/renderTemplate")
+    // public String renderTemplate(@RequestParam @NotNull(message = "templateId can't be null") Long templateId, @RequestBody(required = false) String body) {
+    //     if (ObjectUtils.isNotEmpty(body)) {
+    //         var validator = JSONValidator.from(body);
+    //         if (!validator.validate()) {
+    //             throw new ValidationException("request body must be json!");
+    //         }
+    //     } else {
+    //         body = "{}";
+    //     }
+    //
+    //     var finalBody = body;
+    //     try {
+    //         return templateService.renderTemplate(templateId, t -> t.binding("body", JSON.parseObject(finalBody)));
+    //     } catch (TemplateRenderException e) {
+    //         throw new TemplateException(ErrorCodeAndUserMessageEnum.B0601, "render Template failed", "模板渲染失败");
+    //     }
+    // }
 }

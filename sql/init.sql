@@ -55,4 +55,4 @@ create table template
     create_time timestamp     not null,
     update_by   bigint        not null,
     update_time timestamp     not null
-)
+);

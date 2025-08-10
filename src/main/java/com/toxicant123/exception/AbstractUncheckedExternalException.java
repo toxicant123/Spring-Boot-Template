@@ -46,4 +46,8 @@ public abstract class AbstractUncheckedExternalException extends RuntimeExceptio
         this.userMessage = errorCodeAndUserMessageEnum.getUserMessage();
         this.httpStatus = errorCodeAndUserMessageEnum.getHttpStatusCode();
     }
+
+    public AbstractUncheckedExternalException(ErrorCodeAndUserMessageEnum errorCodeAndUserMessageEnum) {
+        super();
+    }
 }

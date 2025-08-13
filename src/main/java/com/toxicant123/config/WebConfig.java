@@ -1,5 +1,6 @@
 package com.toxicant123.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -19,6 +20,9 @@ import java.util.List;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    @Autowired
+    private AuthInterceptor authInterceptor;
+
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.removeIf(converter -> converter instanceof StringHttpMessageConverter);
@@ -30,7 +34,7 @@ public class WebConfig implements WebMvcConfigurer {
                 "/api/login/*",
                 "/api/hello/**");
 
-        registry.addInterceptor(new AuthInterceptor())
+        registry.addInterceptor(authInterceptor)
                 .addPathPatterns("/**") // 设置拦截器应用的路径模式
                 .excludePathPatterns(unnecessaryAuthUrl); // 排除不需要拦截的路径
     }

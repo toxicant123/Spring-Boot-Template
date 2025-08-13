@@ -28,8 +28,8 @@ import java.util.HashSet;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    @Value("${login.token.expire-time}")
-    private Integer loginTokenExpireTime;
+    @Value("${login.token.expire-minute}")
+    private Integer loginTokenExpireMinute;
 
     @Autowired
     private UserAuthRepository userAuthRepository;
@@ -53,6 +53,6 @@ public class LoginServiceImpl implements LoginService {
         return new UserLoginBO()
                 .setUserId(userAuth.getId())
                 .setUserRoles(new HashSet<>(userRoleRepository.queryUserRoleById(userAuth.getId())))
-                .setExpireTime(DateUtils.addMinutes(new Date(), loginTokenExpireTime));
+                .setExpireTime(DateUtils.addMinutes(new Date(), loginTokenExpireMinute));
     }
 }

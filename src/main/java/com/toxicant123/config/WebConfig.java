@@ -20,6 +20,8 @@ import java.util.List;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    private static final String API_PREFIX = "/api";
+
     @Autowired
     private AuthInterceptor authInterceptor;
 
@@ -31,17 +33,17 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         var unnecessaryAuthUrl = List.of(
-                "/api/login/*",
-                "/api/hello/**");
+                API_PREFIX + "/login/*",
+                API_PREFIX + "/hello/**");
 
         registry.addInterceptor(authInterceptor)
-                .addPathPatterns("/**") // 设置拦截器应用的路径模式
-                .excludePathPatterns(unnecessaryAuthUrl); // 排除不需要拦截的路径
+                .addPathPatterns(API_PREFIX + "/**")
+                .excludePathPatterns(unnecessaryAuthUrl);
     }
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-        configurer.addPathPrefix("/api",
+        configurer.addPathPrefix(API_PREFIX,
                 clazz -> clazz.isAnnotationPresent(RestController.class));
     }
 }

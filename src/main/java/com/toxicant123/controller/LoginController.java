@@ -2,13 +2,12 @@ package com.toxicant123.controller;
 
 import com.toxicant123.annotation.RequireRole;
 import com.toxicant123.constant.UserRoleConstant;
+import com.toxicant123.dto.LoginDTO;
 import com.toxicant123.dto.TokenDTO;
 import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
 import com.toxicant123.exception.unchecked.AccessException;
 import com.toxicant123.service.AccessCheckService;
 import com.toxicant123.service.LoginService;
-import com.toxicant123.dto.LoginDTO;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
  * @Description
  * @create 2024-06-27 下午11:20
  */
-@Slf4j
 @RestController
 @RequestMapping("/login")
 public class LoginController {

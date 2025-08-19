@@ -4,7 +4,6 @@ import com.toxicant123.annotation.Username;
 import com.toxicant123.enums.SpecialCharEnum;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.ObjectUtils;
 
@@ -18,7 +17,6 @@ import java.util.stream.Stream;
  * @Description
  * @create 2024-08-06 下午11:56
  */
-@Slf4j
 public class UsernameValidator implements ConstraintValidator<Username, String> {
 
     private static final Set<Character> USERNAME_SPECIAL_CHARACTER_SET = Stream

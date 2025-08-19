@@ -1,13 +1,12 @@
 package com.toxicant123.service.impl;
 
 import com.toxicant123.bo.UserLoginBO;
+import com.toxicant123.dto.LoginDTO;
 import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
 import com.toxicant123.exception.unchecked.LoginException;
-import com.toxicant123.dto.LoginDTO;
 import com.toxicant123.repository.UserAuthRepository;
 import com.toxicant123.repository.UserRoleRepository;
 import com.toxicant123.service.LoginService;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -24,7 +23,6 @@ import java.util.HashSet;
  * @Description
  * @create 2024-08-07 下午8:47
  */
-@Slf4j
 @Service
 public class LoginServiceImpl implements LoginService {
 

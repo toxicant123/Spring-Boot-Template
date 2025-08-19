@@ -6,3 +6,4 @@
 2. 研究是否继续移除StringHttpMessageConverter，参考链接：https://chatgpt.com/share/68a1d619-c268-8008-b975-561bd28db800
 3. 研究当使用ResponseEntity返回给前端图片时是否需要在beforeBodyWrite方法中统一处理，参考链接：https://chatgpt.com/share/68a1d69b-3e9c-8008-b53b-bc3a508a25ff
 4. 增加Login接口的登陆校验
+5. 增加对ws的支持并加入鉴权。参考链接：https://chatgpt.com/share/68a4b0a5-ffe4-8008-bc80-03ef6b713ce3

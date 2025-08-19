@@ -68,6 +68,11 @@
             <artifactId>beetl</artifactId>
             <version>3.19.1.RELEASE</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

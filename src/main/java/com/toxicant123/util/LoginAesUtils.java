@@ -2,7 +2,6 @@ package com.toxicant123.util;
 
 import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
 import com.toxicant123.exception.unchecked.LoginException;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
@@ -17,7 +16,6 @@ import java.util.Base64;
  * @Description
  * @create 2024-07-22 上午1:50
  */
-@Slf4j
 public class LoginAesUtils {
 
     private static final String ALGORITHM = "AES";

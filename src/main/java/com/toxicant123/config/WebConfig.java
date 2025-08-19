@@ -20,7 +20,7 @@ import java.util.List;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    private static final String API_PREFIX = "/api";
+    public static final String API_PREFIX = "/api";
 
     @Autowired
     private AuthInterceptor authInterceptor;

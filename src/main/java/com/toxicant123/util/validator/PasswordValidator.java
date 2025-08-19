@@ -4,7 +4,6 @@ import com.toxicant123.annotation.Password;
 import com.toxicant123.enums.SpecialCharEnum;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.ObjectUtils;
 
@@ -18,7 +17,6 @@ import java.util.stream.Stream;
  * @Description
  * @create 2024-07-21 下午5:46
  */
-@Slf4j
 public class PasswordValidator implements ConstraintValidator<Password, String> {
 
     private static final Set<Character> PASSWORD_SPECIAL_CHARACTER_SET = Stream

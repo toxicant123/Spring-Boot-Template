@@ -1,7 +1,6 @@
 package com.toxicant123.service.impl;
 
 import com.toxicant123.service.ValidateService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -13,7 +12,6 @@ import org.springframework.validation.SmartValidator;
  * @Description
  * @create 2024-07-21 下午8:20
  */
-@Slf4j
 @Service
 public class ValidateServiceImpl implements ValidateService {
 

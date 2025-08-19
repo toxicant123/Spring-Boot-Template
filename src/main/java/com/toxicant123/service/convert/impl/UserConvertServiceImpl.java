@@ -3,7 +3,6 @@ package com.toxicant123.service.convert.impl;
 import com.toxicant123.entity.UserDO;
 import com.toxicant123.service.convert.UserConvertService;
 import com.toxicant123.dto.UserDTO;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
  * @Description
  * @create 2024-07-14 下午2:46
  */
-@Slf4j
 @Service
 public class UserConvertServiceImpl implements UserConvertService {
 

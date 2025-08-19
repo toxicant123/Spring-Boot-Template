@@ -7,7 +7,6 @@ import com.toxicant123.dto.UserDTO;
 import com.toxicant123.service.UserService;
 import com.toxicant123.util.UserLoginUtils;
 import jakarta.validation.constraints.NotNull;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
  * @Description
  * @create 2024-07-14 下午2:31
  */
-@Slf4j
 @RestController
 @RequestMapping("/user")
 @RequireRole(UserRoleConstant.USER_ROLE_USER)

@@ -4,7 +4,6 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 import com.toxicant123.enums.ErrorCodeAndUserMessageEnum;
 import com.toxicant123.exception.unchecked.HttpException;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.HttpStatus;
 
@@ -27,7 +26,6 @@ import java.util.stream.Collectors;
  * @Description
  * @create 2024-07-13 下午5:04
  */
-@Slf4j
 public class HTTP {
 
     private static final Duration timeout = Duration.ofSeconds(10);

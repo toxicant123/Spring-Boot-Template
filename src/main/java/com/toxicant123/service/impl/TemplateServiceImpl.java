@@ -12,7 +12,6 @@ import com.toxicant123.service.TemplateService;
 import com.toxicant123.service.convert.TemplateConvertService;
 import com.toxicant123.util.AuditUtils;
 import com.toxicant123.util.UserLoginUtils;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
@@ -28,7 +27,6 @@ import java.util.function.Consumer;
  * @Description
  * @create 2025-04-10 08:23
  */
-@Slf4j
 @Service
 public class TemplateServiceImpl implements TemplateService {
 

@@ -14,7 +14,6 @@ import com.toxicant123.validation.AddTemplateValidation;
 import com.toxicant123.validation.UpdateTemplateValidation;
 import jakarta.validation.ValidationException;
 import jakarta.validation.constraints.NotNull;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.*;
  * @Description
  * @create 2025-04-10 08:24
  */
-@Slf4j
 @RestController
 @RequestMapping("/template")
 @RequireRole(UserRoleConstant.USER_ROLE_ADMIN)

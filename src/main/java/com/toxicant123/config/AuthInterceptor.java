@@ -7,15 +7,19 @@ import com.toxicant123.exception.unchecked.AuthException;
 import com.toxicant123.util.UserLoginUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.socket.WebSocketHandler;
+import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import java.util.Date;
+import java.util.Map;
 
 
 /**
@@ -24,9 +28,8 @@ import java.util.Date;
  * @Description
  * @create 2024-08-09 下午1:10
  */
-@Slf4j
 @Component
-public class AuthInterceptor implements HandlerInterceptor {
+public class AuthInterceptor implements HandlerInterceptor, HandshakeInterceptor {
 
     private static final String AUTH_HEADER = HttpHeaders.AUTHORIZATION;
 
@@ -87,5 +90,15 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         UserLoginUtils.clearUserLoginBO();
+    }
+
+    @Override
+    public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
+        return true;
+    }
+
+    @Override
+    public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception exception) {
+
     }
 }

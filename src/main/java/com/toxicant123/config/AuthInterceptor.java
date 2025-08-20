@@ -14,9 +14,9 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Date;
 import java.util.Map;
@@ -32,6 +32,8 @@ import java.util.Map;
 public class AuthInterceptor implements HandlerInterceptor, HandshakeInterceptor {
 
     private static final String AUTH_HEADER = HttpHeaders.AUTHORIZATION;
+
+    private static final String TOKEN_PARAM = "token";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -83,17 +85,22 @@ public class AuthInterceptor implements HandlerInterceptor, HandshakeInterceptor
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
-    }
-
-    @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         UserLoginUtils.clearUserLoginBO();
     }
 
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
+        var token = request.getHeaders().getFirst(AUTH_HEADER);
+
+        if (ObjectUtils.isEmpty(token)) {
+            token = UriComponentsBuilder
+                    .fromUri(request.getURI())
+                    .build()
+                    .getQueryParams()
+                    .getFirst(TOKEN_PARAM);
+        }
+
         return true;
     }
 

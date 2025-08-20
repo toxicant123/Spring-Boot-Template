@@ -1,6 +1,6 @@
 package com.toxicant123.controller;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -11,7 +11,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
  * @Description
  * @create 2025-08-20 00:29
  */
-@Controller
+@Component
 public class WebSocketController extends TextWebSocketHandler {
 
     @Override
